@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_ICT_eSDLC" Class="db_sdlcDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.TBL_T_APP" Member="TBL_T_APPs">
+    <Type Name="TBL_T_APP">
+      <Column Name="APP_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="APP_NAME" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="OWNER" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="PLATFORM_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SERVER_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="STATUS_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_STEP" Member="TBL_M_STEPs">
+    <Type Name="TBL_M_STEP">
+      <Column Name="STEP_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_T_VERSION" Member="TBL_T_VERSIONs">
+    <Type Name="TBL_T_VERSION">
+      <Column Name="VERSION_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DATE" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="VERSION" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="APP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_T_ACTIVITY1" Member="TBL_T_ACTIVITY1s">
+    <Type Name="TBL_T_ACTIVITY1">
+      <Column Name="ACTIVITY_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="START_DATETIME" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="END_DATETIME" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ACTIVITY_DETAIL" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="REMARKS" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="APP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="VERSION_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PIC_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="STEP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_PIC" Member="TBL_M_PICs">
+    <Type Name="TBL_M_PIC">
+      <Column Name="PIC_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="PIC_DEV" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="PIC_OPR" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_DOC_TYPE" Member="TBL_M_DOC_TYPEs">
+    <Type Name="TBL_M_DOC_TYPE">
+      <Column Name="DOC_TYPE_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TYPE" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_PLATFORM" Member="TBL_M_PLATFORMs">
+    <Type Name="TBL_M_PLATFORM">
+      <Column Name="PLATFORM_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_SERVER" Member="TBL_M_SERVERs">
+    <Type Name="TBL_M_SERVER">
+      <Column Name="SERVER_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="REMARKS" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_M_STATUS" Member="TBL_M_STATUS">
+    <Type Name="TBL_M_STATUS">
+      <Column Name="STATUS_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.cufn_getAllActivities1" Method="cufn_getAllActivities1" IsComposable="true">
+    <ElementType Name="cufn_getAllActivities1Result">
+      <Column Name="ACTIVITY_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="START_DATETIME" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="END_DATETIME" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ACTIVITY_DETAIL" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="REMARKS" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="APP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="APP_NAME" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="VERSION_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="VERSION" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="APP_STATUS" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PIC_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PIC_NAME" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="STEP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="STEP_NAME" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cufn_getAllApps" Method="cufn_getAllApps" IsComposable="true">
+    <ElementType Name="cufn_getAllAppsResult">
+      <Column Name="APP_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="APP_NAME" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="OWNER" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="PLATFORM_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PLATFORM_NAME" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SERVER_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SERVER_NAME" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="STATUS_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="STATUS" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cufn_getAllDocs" Method="cufn_getAllDocs" IsComposable="true">
+    <ElementType Name="cufn_getAllDocsResult">
+      <Column Name="DOC_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="VERSION" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RELEASE_DATE" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="APP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="app_name" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="DOC_TYPE_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DOC_TYPE" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cufn_getAllVersions" Method="cufn_getAllVersions" IsComposable="true">
+    <ElementType Name="cufn_getAllVersionsResult">
+      <Column Name="VERSION_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DATE" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="VERSION" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="APP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.cufn_getAllDatabases" Method="cufn_getAllDatabases" IsComposable="true">
+    <ElementType Name="cufn_getAllDatabasesResult">
+      <Column Name="DB_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="APP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

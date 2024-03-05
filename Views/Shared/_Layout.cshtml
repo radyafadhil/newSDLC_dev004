@@ -1,0 +1,345 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <title>KPP eSDLC</title>
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="~/Content/assets/media/favicons/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Content/assets/media/favicons/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/assets/media/favicons/apple-touch-icon-180x180.png">
+    <!-- END Icons -->
+    <!-- Stylesheets -->
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet" href="~/Content/Assets/js/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/Content/assets/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/Content/assets/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/Content/assets/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css">
+
+    <!-- Fonts and Codebase framework -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap">
+    <link rel="stylesheet" id="css-main" href="~/Content/assets/css/codebase.min.css">
+    <link rel="stylesheet" href="~/Content/Assets/js/plugins/sweetalert2/sweetalert2.min.css"> @*SWAL POPUP*@
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+
+    @RenderSection("links", required: false)
+
+</head>
+<body>
+
+    <div id="page-container" class="sidebar-dark side-scroll page-header-fixed main-content-boxed">
+
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <!-- Sidebar Content -->
+            <div class="sidebar-content">
+                <!-- Side Header -->
+                <div class="content-header justify-content-lg-center bg-black-10">
+                    <!-- Logo -->
+                    <div>
+                        <a class="link-fx fw-bold tracking-wide mx-auto" href="index.html">
+                            <span class="smini-hidden">
+                                <span class="fs-4 text-dual">KPP </span><span class="fs-4 text-primary">eSDLC</span>
+                            </span>
+                        </a>
+                    </div>
+                    <!-- END Logo -->
+                    <!-- Options -->
+                    <div>
+                        <!-- Close Sidebar, Visible only on mobile screens -->
+                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                        <button type="button" class="btn btn-sm btn-alt-danger d-lg-none" data-toggle="layout" data-action="sidebar_close">
+                            <i class="fa fa-fw fa-times"></i>
+                        </button>
+                        <!-- END Close Sidebar -->
+                    </div>
+                    <!-- END Options -->
+                </div>
+                <!-- END Side Header -->
+                <!-- Sidebar Scrolling -->
+                <div class="js-sidebar-scroll">
+                    <!-- Side Main Navigation -->
+                    <div class="content-side content-side-full">
+                        <!--
+                        Mobile navigation, desktop navigation can be found in #page-header
+
+                        If you would like to use the same navigation in both mobiles and desktops, you can use exactly the same markup inside sidebar and header navigation ul lists
+                        -->
+                        <ul class="nav-main">
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="">
+                                    <i class="nav-main-link-icon fa fa-flag"></i>
+                                    <span class="nav-main-link-name">Notifications</span>
+                                </a>
+
+                                <!-- Submenu untuk Notifications -->
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a href="#" class="nav-main-link">
+                                            <span class="nav-main-link-name">Submenu 1</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a href="#" class="nav-main-link">
+                                            <span class="nav-main-link-name">Submenu 2</span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </li>
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="">
+                                    <i class="nav-main-link-icon fa fa-envelope"></i>
+                                    <span class="nav-main-link-name">Messages</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END Side Main Navigation -->
+                </div>
+                <!-- END Sidebar Scrolling -->
+            </div>
+            <!-- Sidebar Content -->
+        </nav>
+        <!-- END Sidebar -->
+        <!-- Header -->
+        <header id="page-header">
+            <!-- Header Content -->
+            <div class="content-header">
+                <div class="row g-0 align-items-center w-100">
+                    <div class="col">
+                        <!-- Toggle Sidebar -->
+                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                        <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout" data-action="sidebar_toggle">
+                            <i class="fa fa-fw fa-bars"></i>
+                        </button>
+                        <!-- END Toggle Sidebar -->
+                        <!-- Header Navigation -->
+                        <!-- Desktop Navigation, mobile navigation can be found in #sidebar -->
+                        <ul class="nav-main nav-main-horizontal nav-main-hover d-none d-lg-block">
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="javascript:void(0)">
+                                    <i class="nav-main-link-icon fa fa-home d-none d-xl-inline-block"></i>
+                                    <span class="nav-main-link-name">Master Data</span>
+                                    <i class="fa fa-chevron-down nav-main-link-arrow"></i> <!-- Penanda panah -->
+                                </a>
+                                <!-- Submenu -->
+                                <ul class="nav-main-submenu">
+
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Master/MasterDocument" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Document Type</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Master/MasterPIC" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Person In Charge</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Master/MasterPlatform" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Platform</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Master/MasterSErver" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Server</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Master/MasterStatus" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Status</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Master/MasterStep" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Step</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="javascript:void(0)">
+                                    <i class="nav-main-link-icon fa fa-home d-none d-xl-inline-block"></i>
+                                    <span class="nav-main-link-name">Activity</span>
+                                    <i class="fa fa-chevron-down nav-main-link-arrow"></i> <!-- Penanda panah -->
+                                </a>
+                                <!-- Submenu -->
+                                <ul class="nav-main-submenu">
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Activity/Index" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Maintain Activity</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Activity/ReviewActivity" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Review Activity</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="/Home/AppList">
+                                    <i class="nav-main-link-icon fa fa-home d-none d-xl-inline-block"></i>
+                                    <span class="nav-main-link-name">App</span>
+                                </a>
+                            </li>
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="javascript:void(0)">
+                                    <i class="nav-main-link-icon fa fa-home d-none d-xl-inline-block"></i>
+                                    <span class="nav-main-link-name">Report</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- END Header Navigation -->
+                    </div>
+                    <div class="col text-end">
+                        <!-- User Dropdown -->
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                @if (Session["uname"] != null)
+                                {
+                                    <span class="fw-semibold">@Session["uname"].ToString()</span>
+                                }
+
+                                else
+                                {
+                                    <span class="fw-semibold">Admin</span>
+                                }
+
+                                <i class="fa fa-angle-down opacity-50 ms-1"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
+                                <div class="p-2">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" onclick="Logout()">
+                                        <span>Sign Out</span>
+                                        <i class="fa fa-fw fa-sign-out-alt opacity-25"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END User Dropdown -->
+                    </div>
+                </div>
+            </div>
+            <!-- END Header Content -->
+
+        </header>
+        <!-- END Header -->
+        <!-- Main Container -->
+        <main id="main-container">
+            <!-- Page Content -->
+            <div class="content">
+                <div class="row">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- END Page Content -->
+        </main>
+        <!-- END Main Container -->
+    </div>
+    <!-- END Page Container -->
+
+    <script src="~/Content/assets/js/codebase.app.min.js"></script>
+
+    <script src="~/Content/Assets/js/lib/jquery.min.js"></script>
+
+    <script src="~/Content/Assets/js/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/flatpickr/flatpickr.min.js"></script>
+
+    <script src="~/Content/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/Content/assets/js/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/assets/js/plugins/datatables-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+
+    <script src="~/Content/Assets/js/plugins/datatables-buttons/dataTables.buttons.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons-jszip/jszip.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons-pdfmake/pdfmake.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons-pdfmake/vfs_fonts.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons/buttons.print.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons/buttons.html5.min.js"></script>
+
+    <script>Codebase.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-colorpicker', 'jq-maxlength', 'jq-select2', 'jq-rangeslider', 'jq-masked-inputs', 'jq-pw-strength']);</script>
+
+    @RenderSection("scripts", required: false)
+    <script src="@Html.Raw(ViewBag.JS)"></script>
+
+</body>
+</html>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var navLinks = document.querySelectorAll('.nav-main-link');
+
+        navLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                var nextElement = this.nextElementSibling;
+                if (nextElement && nextElement.classList.contains('nav-main-submenu')) {
+                    event.preventDefault(); // Menghentikan link dari navigasi
+                    nextElement.style.display = (nextElement.style.display == 'block' ? 'none' : 'block'); // Toggle display
+                }
+            });
+        });
+    });
+
+    function Logout() {
+
+        $.ajax({
+            url: "/Home/Logout",
+            type: "GET",
+            cache: false,
+            success: function (result) {
+                if (result.Status == true) {
+                    window.location.href = "/Home/Login"
+                }
+
+                else {
+                    alert(result.Message)
+                }
+            }
+        });
+    }
+</script>
+
+<style>
+    .nav-main-item {
+        position: relative;
+    }
+
+    .nav-main-link-arrow {
+        margin-left: 5px; /* Atur jarak panah dari teks */
+    }
+
+    .nav-main-submenu {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 100%; /* Pastikan submenu muncul di bawah item induk */
+        z-index: 1000; /* Pastikan submenu muncul di atas konten lain */
+    }
+
+    .nav-main-item:hover .nav-main-submenu {
+        display: block; /* Menampilkan submenu saat item induk di-hover */
+    }
+
+    .nav-main-submenu {
+        display: none; /* Sembunyikan submenu secara default */
+    }
+
+    .nav-main-item:hover .nav-main-submenu {
+        display: block; /* Tampilkan submenu saat item induk di-hover */
+    }
+
+</style>

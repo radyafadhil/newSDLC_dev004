@@ -1,0 +1,131 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <title>KPP eSDLC</title>
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="~/Content/assets/media/favicons/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Content/assets/media/favicons/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/assets/media/favicons/apple-touch-icon-180x180.png">
+    <!-- END Icons -->
+    <!-- Stylesheets -->
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet" href="~/Content/Assets/js/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/Content/assets/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/Content/assets/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/Content/assets/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css">
+
+    <!-- Fonts and Codebase framework -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap">
+    <link rel="stylesheet" id="css-main" href="~/Content/assets/css/codebase.min.css">
+    <link rel="stylesheet" href="~/Content/Assets/js/plugins/sweetalert2/sweetalert2.min.css"> @*SWAL POPUP*@
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+
+</head>
+<body>
+    <!-- Page Container -->
+
+    <div id="page-container" class="main-content-boxed">
+
+        <!-- Main Container -->
+        <main id="main-container">
+            <!-- Page Content -->
+            <div class="bg-body-dark">
+                <div class="row mx-0 justify-content-center">
+                    <div class="hero-static col-lg-6 col-xl-4">
+                        <div class="content content-full overflow-hidden">
+                            <!-- Header -->
+                            <div class="py-4 text-center">
+
+                                <h1 class="h3 fw-bold mt-4 mb-2">KPP eSDLC</h1>
+                                <h2 class="h5 fw-medium text-muted mb-0">It’s a great day today!</h2>
+                            </div>
+                            <!-- END Header -->
+                            <!-- Sign In Form -->
+                            <!-- jQuery Validation functionality is initialized with .js-validation-signin class in js/pages/op_auth_signin.min.js which was auto compiled from _js/pages/op_auth_signin.js -->
+                            <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
+                            <form method="POST" id="login-form" onsubmit="GoToLogin(); return false;">
+                                <div class="block block-themed block-rounded block-fx-shadow">
+                                    <div class="block-header bg-gd-dusk">
+                                        <h3 class="block-title">Please Sign In</h3>
+                                    </div>
+                                    <div class="block-content">
+                                        <div class="form-floating mb-4">
+                                            <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Enter your username">
+                                            <label class="form-label" for="login-username">Username</label>
+                                        </div>
+                                        <div class="form-floating mb-4">
+                                            <input type="password" class="form-control" id="login-password" name="login-password" placeholder="Enter your password">
+                                            <label class="form-label" for="login-password">Password</label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 d-sm-flex align-items-center push">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="login-remember-me" name="login-remember-me">
+                                                    <label class="form-check-label" for="login-remember-me">Remember Me</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 text-sm-end push">
+                                                <button type="button" class="btn btn-lg btn-alt-primary fw-medium" onclick="GoToLogin()">
+                                                    Sign In
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- END Sign In Form -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Page Content -->
+        </main>
+        <!-- END Main Container -->
+    </div>
+    <!-- END Page Container -->
+
+    <script src="~/Content/assets/js/codebase.app.min.js"></script>
+
+    <!-- jQuery (required for Select2 + jQuery Validation plugins) -->
+    <script src="~/Content/assets/js/lib/jquery.min.js"></script>
+
+    <!-- Page JS Plugins -->
+    <script src="~/Content/assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+
+    <!-- Page JS Code -->
+    <script src="~/Content/assets/js/pages/op_auth_signin.min.js"></script>
+
+    <script src="~/Content/Assets/js/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/flatpickr/flatpickr.min.js"></script>
+
+    <script src="~/Content/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/Content/assets/js/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/assets/js/plugins/datatables-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+
+    <script src="~/Content/Assets/js/plugins/datatables-buttons/dataTables.buttons.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons-jszip/jszip.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons-pdfmake/pdfmake.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons-pdfmake/vfs_fonts.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons/buttons.print.min.js"></script>
+    <script src="~/Content/Assets/js/plugins/datatables-buttons/buttons.html5.min.js"></script>
+
+    <script>Codebase.helpersOnLoad(['js-flatpickr', 'jq-datepicker', 'jq-colorpicker', 'jq-maxlength', 'jq-select2', 'jq-rangeslider', 'jq-masked-inputs', 'jq-pw-strength']);</script>
+
+</body>
+</html>
+
+<script src="~/Js/Login.js"></script>

@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Master Document";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" class="form-control" id="txtDocEdit" name="txtDocEdit">
+
+<!-- Inline -->
+<div class="block block-rounded">
+    <div class="block-header">
+        <h2 class="block-title">Master Document</h2>
+    </div>
+    <div class="block-content block-content-full">
+        <div class="row">
+            <div class="col-lg-8 space-y-2">
+                <!-- Form Inline - Default Style -->
+                <form class="row row-cols-8 g-3 align-items-center" method="POST">
+                    <div class="col-8">
+                        <input type="text" class="form-control " id="txtDoc" name="txtDoc" placeholder="Tambah Document Baru!">
+                    </div>
+                    <div>
+                        <button type="button" id="btnDynamic" onclick="simpanDoc()" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                <!-- END Form Inline - Default Style -->
+            </div>
+        </div>
+
+        <div class="box bg-white shadow p-4 mt-4 rounded">
+            <table id="table-layer-group" class="table table-striped table-inverse table-responsive">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Action</th>
+                        <th>Document Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!-- END Inline -->
+
+@section scripts {
+    <script>
+        let tableLocation
+
+        $(document).ready(function () {
+            tableLocation = $('#table-layer-group').DataTable({
+                ajax: '/Master/getMasterDoc',
+                dataSrc: 'data',
+                scrollY: '48vh',
+                columns: [
+                    {
+                        mData: 'DOC_TYPE_ID',
+                        mRender: function (data, type, row) {
+                            return ` <a onclick="handleEdit('${data}')" style="text-decoration: none">
+                       <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
+                       </a>
+                       <button class="btn btn-danger" onclick="handleDelete('${data}')">
+                       <i class="fa-solid fa-trash text-light"></i></button>
+                       `
+                        },
+                        width: '200px',
+                    },
+                    {
+                        mData: 'TYPE',
+                    },
+                ],
+            })
+        });
+
+        function handleDelete(id) {
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: 'Data akan dihapus ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: `/Master/DeleteDocType?id=${id}`,
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (response) {
+
+                            if (response.Status === true) {
+                                tableLocation.ajax.reload()
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Data berhasil dihapus.',
+                                    'success'
+                                )
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: response.Message,
+                                })
+                            }
+                        },
+                    })
+                }
+            })
+        }
+
+        function handleEdit(id) {
+            $("#txtDocEdit").val(id)
+
+            $.ajax({
+                type: 'GET',
+                url: `/Master/getDetailDoc?id=` + id,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.Status) {
+                        $("#txtDoc").val(response.data.TYPE)
+                        $("#btnDynamic").text("Update")
+                    } else {
+                        window.location.reload();
+                    }
+                },
+            })
+
+        }
+
+        function simpanDoc() {
+            var txtButton = $("#btnDynamic").text()
+
+            if (txtButton == "Update") {
+
+                var idDoc = $("#txtDocEdit").val()
+                var typeDoc = $("#txtDoc").val()
+
+                var obj = {
+                    ID_DOC: idDoc,
+                    TYPE: typeDoc
+                }
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "/Master/UpdateDoc",
+                    data: JSON.stringify(obj),
+                    success: function (response) {
+                        if (response.Status == true) {
+
+                            Swal.fire(
+                                'Success!',
+                                'Data berhasil di Update.',
+                                'success'
+                            )
+
+                            $("#txtDoc").val("")
+                            $("#btnDynamic").text("Simpan")
+                            tableLocation.ajax.reload();
+
+                        } else {
+
+                            alert(response.Message);
+                        }
+                    }
+                });
+            }
+
+            else if (txtButton == "Simpan") {
+
+                var typeDoc = $("#txtDoc").val()
+
+                var obj = {
+                    TYPE: typeDoc,
+                }
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "/Master/simpanDoc",
+                    data: JSON.stringify(obj),
+                    success: function (response) {
+                        if (response.Status == true) {
+
+                            Swal.fire(
+                                'Success!',
+                                'Data berhasil di Simpan.',
+                                'success'
+                            )
+
+                            $("#txtDoc").val("")
+                            $("#btnDynamic").text("Simpan")
+                            tableLocation.ajax.reload();
+
+                        } else {
+
+                            alert(response.Message);
+                        }
+                    }
+                });
+            }
+
+        }
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+        })
+
+
+    </script>
+}

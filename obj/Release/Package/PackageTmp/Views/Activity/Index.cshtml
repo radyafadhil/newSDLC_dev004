@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Maintain Activity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" class="form-control" id="block-form-actid" name="block-form-actid" value="@ViewBag.actid"/>
+<input type="hidden" class="form-control" id="block-form-picid" name="block-form-picid" value="@ViewBag.picid" />
+
+<input type="hidden" class="form-control" id="block-form-actdetailGet" name="block-form-actdetailGet" value="@ViewBag.actdetail" />
+<input type="hidden" class="form-control" id="block-form-remarkGet" name="block-form-remarkGet" value="@ViewBag.remarks" />
+<input type="hidden" class="form-control" id="block-form-appidGet" name="block-form-appidGet" value="@ViewBag.appid" />
+<input type="hidden" class="form-control" id="block-form-versionidGet" name="block-form-versionidGet" value="@ViewBag.versionid" />
+<input type="hidden" class="form-control" id="block-form-stepidGet" name="block-form-stepidGet" value="@ViewBag.stepid" />
+
+<div class="block block-rounded">
+    <div class="block-header">
+        <h2 class="block-title">Maintain Activity</h2>
+    </div>
+
+    <div class="row justify-content-center py-sm-3 py-md-5">
+        <div class="col-sm-10 col-md-8">
+            <div class="mb-4">
+                <label class="form-label" for="block-form-actdetail">Activity Detail</label>
+
+                @if (ViewBag.actdetail != null)
+                {
+                    <textarea type="text" class="form-control" id="block-form-actdetailTxt" name="block-form-actdetailTxt">@ViewBag.actdetail</textarea>
+                }
+
+                else
+                {
+                    <textarea type="text" class="form-control" id="block-form-actdetail" name="block-form-actdetail"></textarea>
+                }
+
+
+            </div>
+            <div class="mb-4">
+                <label class="form-label" for="block-form-remarks">Remarks</label>
+
+                @if (ViewBag.remarks != null)
+                {
+                    <textarea type="text" class="form-control" id="block-form-remarksTxt" name="block-form-remarksTxt">@ViewBag.remarks</textarea>
+                }
+
+                else
+                {
+                    <textarea type="text" class="form-control" id="block-form-remarks" name="block-form-remarks"></textarea>
+                }
+
+
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label" for="block-form-app">App</label>
+
+                @if (ViewBag.appid != null)
+                {
+                    <input type="text" class="form-control" id="block-form-appTxt" name="block-form-appTxt" value="@ViewBag.appid" disabled  />
+                }
+
+                else
+                {
+                    <select class="form-select" id="block-form-app" name="block-form-app" style="width: 100%;">
+                        <option value=""></option>
+                    </select>
+                }
+
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label" for="block-form-version">Version</label>
+
+                @if (ViewBag.versionid != null)
+                {
+                    <input type="text" class="form-control" id="block-form-versionTxt" name="block-form-versionTxt" value="@ViewBag.versionid" disabled />
+                }
+
+                else
+                {
+                    <select class="form-select" id="block-form-version" name="block-form-version" style="width: 100%;">
+                        <option value=""></option>
+                    </select>
+                }
+
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label" for="block-form-step">Step</label>
+
+                @if (ViewBag.stepid != null)
+                {
+                    <input type="text" class="form-control" id="block-form-stepTxt" name="block-form-stepTxt" value="@ViewBag.stepid" disabled />
+                }
+
+                else
+                {
+                    <select class="form-select" id="block-form-step" name="block-form-step" style="width: 100%;">
+                        <option value="">Loading...</option>
+                    </select>
+                }
+
+            </div>
+
+            <div class="mb-4">
+                @if (ViewBag.actid != null && ViewBag.stateAct == "upd")
+                {
+                    <button type="button" id="block-btn-state" class="btn btn-primary" onclick="CRUD_Activity()">END</button>
+                }
+
+                else
+                {
+                    <button type="button" id="block-btn-state" class="btn btn-primary" onclick="CRUD_Activity()">START</button>
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script src="~/Js/ActivityMaintain.js"></script>
+}
