@@ -197,6 +197,21 @@ function getDataById() {
     });
 }
 
+function saveDocList() {
+    var appname = $("#input_appname").val();
+    var owner = $("#input_owner").val();
+}
+
+function saveVersionNew() {
+        var appname = $("#input_appname").val();
+        var owner = $("#input_owner").val();
+}
+
+function saveDatabaseList() {
+        var appname = $("#input_appname").val();
+        var owner = $("#input_owner").val();
+}
+
 //function SaveNewApp() {
 
 //    var appname = $("#input_appname").val();
