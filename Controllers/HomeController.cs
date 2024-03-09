@@ -279,6 +279,20 @@ namespace new_SDLC.Controllers
             }
         }
 
+        public JsonResult getListDocType()
+        {
+            try
+            {
+                string id = Session["idApp"].ToString();
+                var get = dbSdlc.TBL_M_DOC_TYPEs.ToList();
+                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err getListDocType : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 
     public class ClsLogin

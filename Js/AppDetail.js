@@ -105,6 +105,7 @@ $(document).ready(function () {
     getServer();
     getStatus();    
     getDataById()
+    getListDocType()
 
 });
 
@@ -197,20 +198,43 @@ function getDataById() {
     });
 }
 
+function getListDocType() {
+    $.ajax({
+        url: "/Home/getListDocType",
+        type: "GET",
+        cache: false,
+        success: function (result) {
+            var text = '<option></option>'; // Pastikan deklarasi 'var' atau 'let' untuk 'text'
+            $.each(result.data, function (key, val) {
+
+                text += '<option value="' + val.DOC_TYPE_ID + '">' + val.TYPE + '</option>';
+            });
+            $('#ddl_docType').html(text); // Tambahkan opsi-opsi ke dalam <select>
+            // Jika menggunakan Bootstrap Select atau library serupa:
+            // $('#modify_Status').selectpicker('refresh');
+        },
+        error: function (xhr, status, error) {
+            // Tambahkan penanganan error
+            console.error("Terjadi kesalahan saat memuat status: ", status, error);
+        }
+    });
+}
+
 function saveDocList() {
+    var server = $("#txtServer").val();
+    var remark = $("#txtRemark").val();
+}
+
+function saveVersionNew() {
     var appname = $("#input_appname").val();
     var owner = $("#input_owner").val();
 }
 
-function saveVersionNew() {
-        var appname = $("#input_appname").val();
-        var owner = $("#input_owner").val();
+function saveDatabaseList() {
+    var appname = $("#input_appname").val();
+    var owner = $("#input_owner").val();
 }
 
-function saveDatabaseList() {
-        var appname = $("#input_appname").val();
-        var owner = $("#input_owner").val();
-}
 
 //function SaveNewApp() {
 

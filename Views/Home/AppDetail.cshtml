@@ -53,10 +53,15 @@
                 <!-- Form Inline - Default Style -->
                 <form class="row row-cols-12 g-3 align-items-center" method="POST">
                     <div class="col-3">
-                        <input type="text" class="form-control " id="txtServer" name="txtServer" placeholder="Tambah Server Baru!">
+                        <input type="text" class="form-control " id="txtVersion" name="txtVersion" placeholder="Version ...">
                     </div>
                     <div class="col-4">
-                        <input type="text" class="form-control " id="txtRemark" name="txtRemark" placeholder="Remark Server Baru!">
+                        <input type="date" class="form-control " id="txtReleaseType" name="txtReleaseType" placeholder="Release Date ...">
+                    </div>
+                    <div class="col-4">
+                        <select class="form-select" id="ddl_docType" name="ddl_docType" style="width: 100%;">
+                            <option value="Doc Type ..."></option>
+                        </select>
                     </div>
                     <div>
                         <button type="button" id="btnDynamic" onclick="saveDocList()" class="btn btn-primary">Simpan</button>
@@ -91,10 +96,10 @@
                 <!-- Form Inline - Default Style -->
                 <form class="row row-cols-12 g-3 align-items-center" method="POST">
                     <div class="col-3">
-                        <input type="text" class="form-control " id="txtServer" name="txtServer" placeholder="Tambah Server Baru!">
+                        <input type="text" class="form-control" id="txtVersion" name="txtVersion" placeholder="Version ...">
                     </div>
                     <div class="col-4">
-                        <input type="text" class="form-control " id="txtRemark" name="txtRemark" placeholder="Remark Server Baru!">
+                        <input type="date" class="form-control" id="txtReleaseDate" name="txtReleaseDate" placeholder="Release Date ...">
                     </div>
                     <div>
                         <button type="button" id="btnDynamic" onclick="saveVersionNew()" class="btn btn-primary">Simpan</button>
@@ -128,10 +133,7 @@
                 <!-- Form Inline - Default Style -->
                 <form class="row row-cols-12 g-3 align-items-center" method="POST">
                     <div class="col-3">
-                        <input type="text" class="form-control " id="txtServer" name="txtServer" placeholder="Tambah Server Baru!">
-                    </div>
-                    <div class="col-4">
-                        <input type="text" class="form-control " id="txtRemark" name="txtRemark" placeholder="Remark Server Baru!">
+                        <input type="text" class="form-control " id="txtName" name="txtName" placeholder="Name ...">
                     </div>
                     <div>
                         <button type="button" id="btnDynamic" onclick="saveDatabaseList()" class="btn btn-primary">Simpan</button>
