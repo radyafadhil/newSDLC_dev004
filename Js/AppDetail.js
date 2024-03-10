@@ -3,6 +3,12 @@ let tableVersion
 let tableDatabase
 
 $(document).ready(function () {
+    getPlatform()
+    getServer();
+    getStatus();
+    getDataById()
+    getListDocType()
+
     tableLocation = $('#table-layer-modal_doc').DataTable({
         ajax: '/Home/getListDocument',
         dataSrc: 'data',
@@ -11,10 +17,10 @@ $(document).ready(function () {
             {
                 mData: 'DOC_ID',
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEdit('${data}')" style="text-decoration: none">
+                    return ` <a onclick="handleEditDocList('${data}')" style="text-decoration: none">
                        <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
                        </a>
-                       <button class="btn btn-danger" onclick="handleDelete('${data}')">
+                       <button class="btn btn-danger" onclick="handleDeleteDocList('${data}')">
                        <i class="fa-solid fa-trash text-light"></i></button>
                        `
                 },
@@ -50,10 +56,10 @@ $(document).ready(function () {
             {
                 mData: 'VERSION_ID',
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEdit('${data}')" style="text-decoration: none">
+                    return ` <a onclick="handleEditVersionList('${data}')" style="text-decoration: none">
                        <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
                        </a>
-                       <button class="btn btn-danger" onclick="handleDelete('${data}')">
+                       <button class="btn btn-danger" onclick="handleDeleteVersionList('${data}')">
                        <i class="fa-solid fa-trash text-light"></i></button>
                        `
                 },
@@ -86,10 +92,10 @@ $(document).ready(function () {
             {
                 mData: 'DB_ID',
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEdit('${data}')" style="text-decoration: none">
+                    return ` <a onclick="handleEditDBList('${data}')" style="text-decoration: none">
                        <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
                        </a>
-                       <button class="btn btn-danger" onclick="handleDelete('${data}')">
+                       <button class="btn btn-danger" onclick="handleDeleteDBList('${data}')">
                        <i class="fa-solid fa-trash text-light"></i></button>
                        `
                 },
@@ -100,14 +106,179 @@ $(document).ready(function () {
             }
         ],
     })
-
-    getPlatform()        
-    getServer();
-    getStatus();    
-    getDataById()
-    getListDocType()
-
+        
 });
+
+function handleDeleteDocList(id) {
+    Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: 'Data akan dihapus ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: `/Home/DeleteDocList?id=${id}`,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (response) {
+
+                    if (response.Status === true) {
+                        tableLocation.ajax.reload()
+                        Swal.fire(
+                            'Deleted!',
+                            'Data berhasil dihapus.',
+                            'success'
+                        )
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.Message,
+                        })
+                    }
+                },
+            })
+        }
+    })
+}
+
+function handleEditDocList(id) {
+    $("#txtDOCID").val(id)
+
+    $.ajax({
+        type: 'GET',
+        url: `/Home/GetDataDOCLIST?id=` + id,
+        dataType: 'json',
+        success: function (response) {
+            if (response.Status) {
+                $("#txtVersion").val(response.data.VERSION)
+                $("#txtReleaseType").val(returnDate(response.data.RELEASE_DATE));
+                $("#ddl_docType").val(response.data.DOC_TYPE_ID)
+                $("#btnDynamicDOC").text("Update")
+            } else {
+                window.location.reload();
+            }
+        },
+    })
+
+}
+
+function handleDeleteVersionList(id) {
+    Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: 'Data akan dihapus ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: `/Home/DeleteVersionList?id=${id}`,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (response) {
+
+                    if (response.Status === true) {
+                        tableVersion.ajax.reload()
+                        Swal.fire(
+                            'Deleted!',
+                            'Data berhasil dihapus.',
+                            'success'
+                        )
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.Message,
+                        })
+                    }
+                },
+            })
+        }
+    })
+}
+
+function handleEditVersionList(id) {
+    $("#txtVERSIONID").val(id)
+
+    $.ajax({
+        type: 'GET',
+        url: `/Home/GetDataVERSIONLIST?id=` + id,
+        dataType: 'json',
+        success: function (response) {
+            if (response.Status) {
+                $("#txtVersion_verslist").val(response.data.VERSION)
+                $("#txtReleaseDate").val(returnDate(response.data.DATE));
+                $("#btnDynamicVERSION").text("Update")
+            } else {
+                window.location.reload();
+            }
+        },
+    })
+
+}
+
+function handleDeleteDBList(id) {
+    Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: 'Data akan dihapus ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: `/Home/DeleteDatabaseList?id=${id}`,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (response) {
+
+                    if (response.Status === true) {
+                        tableDatabase.ajax.reload()
+                        Swal.fire(
+                            'Deleted!',
+                            'Data berhasil dihapus.',
+                            'success'
+                        )
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.Message,
+                        })
+                    }
+                },
+            })
+        }
+    })
+}
+
+function handleEditDBList(id) {
+    $("#txtDBID").val(id)
+
+    $.ajax({
+        type: 'GET',
+        url: `/Home/GetDataDBLIST?id=` + id,
+        dataType: 'json',
+        success: function (response) {
+            if (response.Status) {
+                $("#txtName").val(response.data.NAME)
+                $("#btnDynamicDB").text("Update")
+            } else {
+                window.location.reload();
+            }
+        },
+    })
+
+}
 
 function getPlatform() {
     $.ajax({
@@ -221,99 +392,110 @@ function getListDocType() {
 }
 
 function saveDocList() {
-    var server = $("#txtServer").val();
-    var remark = $("#txtRemark").val();
+    var version = $("#txtVersion").val();
+    var releasetype = $("#txtReleaseType").val();
+    var ddldoctype = $("#ddl_docType").val();
+
+    var obj = {
+        VERSION_DOCLIST: version,
+        RELEASEDATE_DOCLIST: releasetype,
+        DOCTYPE_DOCLIST: ddldoctype
+    }
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        url: "/Home/InsertNewDocList",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            if (response.Status == true) {
+
+                alert(response.Message);
+                window.location.reload();
+
+            } else {
+
+                alert(response.Message);
+            }
+        }
+    });
 }
 
 function saveVersionNew() {
-    var appname = $("#input_appname").val();
-    var owner = $("#input_owner").val();
+    var version = $("#txtVersion_verslist").val();
+    var releasedate = $("#txtReleaseDate").val();
+
+    var obj = {
+        VERSION_VERSIONLIST: version,
+        DATE_VERSIONLIST: releasedate
+    }
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        url: "/Home/InsertNewVersionList",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            if (response.Status == true) {
+
+                alert(response.Message);
+                window.location.reload();
+
+            } else {
+
+                alert(response.Message);
+            }
+        }
+    });
+
 }
 
 function saveDatabaseList() {
-    var appname = $("#input_appname").val();
-    var owner = $("#input_owner").val();
+    var namedb = $("#txtName").val();
+
+    var obj = {
+        NAME_DBLIST: namedb
+    }
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        url: "/Home/InsertNewDatabaseList",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            if (response.Status == true) {
+
+                alert(response.Message);
+                window.location.reload();
+
+            } else {
+
+                alert(response.Message);
+            }
+        }
+    });
 }
 
+function returnDate(dateString) {
+    // Misal response.data.DATE = "/Date(1709830800000)/";
+    //var dateString = response.data.DATE;
 
-//function SaveNewApp() {
+    // Ekstrak timestamp dari string dan konversi ke integer
+    var timestamp = parseInt(dateString.match(/\d+/)[0]);
 
-//    var appname = $("#input_appname").val();
-//    var owner = $("#input_owner").val();
-//    var platform = $("#input_platform").val();
-//    var server = $("#input_server").val();
-//    var status = $("#input_Status").val();
-//    var version = $("#input_Version").val();
+    // Buat objek Date baru dengan timestamp tersebut
+    var date = new Date(timestamp);
 
-//    console.log(appname, owner, platform, server, status, version)
+    // Format tanggal ke yyyy-MM-dd tanpa konversi ke UTC
+    var year = date.getFullYear();
+    // getMonth() mengembalikan bulan dari 0-11, tambahkan 1 untuk mendapatkan format bulan yang benar
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
 
-//    var obj = {
-//        APP_NAME: appname,
-//        OWNER: owner,
-//        PLATFORM: platform,
-//        SERVER: server,
-//        STATUS: status,
-//        VERSION: version
-//    }
+    var formattedDate = year + '-' + month + '-' + day;
 
-//    $.ajax({
-//        type: "POST",
-//        dataType: "json",
-//        contentType: "application/json",
-//        url: "/Home/InsertNewApp",
-//        data: JSON.stringify(obj),
-//        success: function (response) {
-//            if (response.Status == true) {
-
-//                alert(response.Message);
-//                window.location.reload();
-
-//            } else {
-
-//                alert(response.Message);
-//            }
-//        }
-//    });
-
-//}
-
-//function handleDelete(id) {
-//    Swal.fire({
-//        title: 'Apakah kamu yakin?',
-//        text: 'Data akan dihapus ?',
-//        icon: 'warning',
-//        showCancelButton: true,
-//        confirmButtonColor: '#3085d6',
-//        cancelButtonColor: '#d33',
-//        confirmButtonText: 'Ya, Hapus!',
-//    }).then((result) => {
-//        if (result.isConfirmed) {
-//            $.ajax({
-//                type: 'POST',
-//                url: `/Home/DeleteAppList?id=${id}`,
-//                dataType: 'json',
-//                contentType: 'application/json',
-//                success: function (response) {
-
-//                    if (response.Status === true) {
-//                        tableLocation.ajax.reload()
-//                        Swal.fire(
-//                            'Deleted!',
-//                            'Data berhasil dihapus.',
-//                            'success'
-//                        )
-//                    } else {
-//                        Toast.fire({
-//                            icon: 'error',
-//                            title: response.Message,
-//                        })
-//                    }
-//                },
-//            })
-//        }
-//    })
-//}
-
-//function handleEdit(id) {
-//    window.location.href = "/Home/AppDetail?id=" + id
-//}
+    return formattedDate
+}

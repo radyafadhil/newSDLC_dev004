@@ -176,6 +176,48 @@ namespace new_SDLC.Controllers
             }
         }
 
+        public JsonResult GetDataDOCLIST(string id)
+        {
+            try
+            {
+                var get = dbSdlc.TBL_T_DOCs.Where(x => x.DOC_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err GetDataDOCLIST : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetDataVERSIONLIST(string id)
+        {
+            try
+            {
+                var get = dbSdlc.TBL_T_VERSIONs.Where(x => x.VERSION_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err GetDataVERSIONLIST : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetDataDBLIST(string id)
+        {
+            try
+            {
+                var get = dbSdlc.TBL_T_DBs.Where(x => x.DB_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err GetDataDBLIST : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         //================================== GET DATA
 
         public JsonResult InsertNewApp(ClsAppList AppList)
@@ -293,6 +335,124 @@ namespace new_SDLC.Controllers
                 return Json(new { Status = false, Message = "Err getListDocType : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult InsertNewDocList(ClsDetailApp dtlApp)
+        {
+            try
+            {
+                TBL_T_DOC nd = new TBL_T_DOC();
+                nd.DOC_ID = Guid.NewGuid();
+                nd.VERSION = dtlApp.VERSION_DOCLIST;
+                nd.RELEASE_DATE = dtlApp.RELEASEDATE_DOCLIST;
+                nd.APP_ID = Session["idApp"].ToString().ToUpper();
+                nd.DOC_TYPE_ID = dtlApp.DOCTYPE_DOCLIST;
+
+                dbSdlc.TBL_T_DOCs.InsertOnSubmit(nd);
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Simpan Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err InsertNewDocList : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult InsertNewVersionList(ClsDetailApp dtlApp)
+        {
+            try
+            {
+                TBL_T_VERSION nd = new TBL_T_VERSION();
+                nd.VERSION_ID = Guid.NewGuid();
+                nd.DATE = dtlApp.DATE_VERSIONLIST;
+                nd.VERSION = dtlApp.VERSION_VERSIONLIST;
+                nd.APP_ID = Session["idApp"].ToString().ToUpper();
+
+                dbSdlc.TBL_T_VERSIONs.InsertOnSubmit(nd);
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Simpan Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err InsertNewVersionList : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult InsertNewDatabaseList(ClsDetailApp dtlApp)
+        {
+            try
+            {
+                TBL_T_DB nd = new TBL_T_DB();
+                nd.DB_ID = Guid.NewGuid();
+                nd.NAME = dtlApp.NAME_DBLIST;
+                nd.APP_ID = Session["idApp"].ToString().ToUpper();
+
+                dbSdlc.TBL_T_DBs.InsertOnSubmit(nd);
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Simpan Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err InsertNewDatabaseList : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult DeleteDocList(string id)
+        {
+            try
+            {
+                var delete = dbSdlc.TBL_T_DOCs.Where(x => x.DOC_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                dbSdlc.TBL_T_DOCs.DeleteOnSubmit(delete);
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err DeleteDocList : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult DeleteVersionList(string id)
+        {
+            try
+            {
+                var delete = dbSdlc.TBL_T_VERSIONs.Where(x => x.VERSION_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                dbSdlc.TBL_T_VERSIONs.DeleteOnSubmit(delete);
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err DeleteVersionList : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult DeleteDatabaseList(string id)
+        {
+            try
+            {
+                var delete = dbSdlc.TBL_T_DBs.Where(x => x.DB_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                dbSdlc.TBL_T_DBs.DeleteOnSubmit(delete);
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err DeleteDatabaseList : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 
     public class ClsLogin
@@ -311,6 +471,25 @@ namespace new_SDLC.Controllers
         public string SERVER { get; set; }
         public string STATUS { get; set; }
         public string VERSION { get; set; }
+    }
+
+    public class ClsDetailApp
+    {
+        //DOC LIST
+        public string VERSION_DOCLIST { get; set; }
+        public DateTime RELEASEDATE_DOCLIST { get; set; }
+        public string APPID_DOCLIST { get; set; }
+        public string DOCTYPE_DOCLIST { get; set; }
+
+        //VERSION
+        public DateTime DATE_VERSIONLIST { get; set; }
+        public string VERSION_VERSIONLIST { get; set; }
+        public string APPID_VERSIONLIST { get; set; }
+
+        //DATABASELIST
+        public string NAME_DBLIST { get; set; }
+        public string APPID_DBLIST { get; set; }
+
     }
 
 }

@@ -57,6 +57,12 @@ namespace new_SDLC.Models
     partial void InsertTBL_M_STATUS(TBL_M_STATUS instance);
     partial void UpdateTBL_M_STATUS(TBL_M_STATUS instance);
     partial void DeleteTBL_M_STATUS(TBL_M_STATUS instance);
+    partial void InsertTBL_T_DB(TBL_T_DB instance);
+    partial void UpdateTBL_T_DB(TBL_T_DB instance);
+    partial void DeleteTBL_T_DB(TBL_T_DB instance);
+    partial void InsertTBL_T_DOC(TBL_T_DOC instance);
+    partial void UpdateTBL_T_DOC(TBL_T_DOC instance);
+    partial void DeleteTBL_T_DOC(TBL_T_DOC instance);
     #endregion
 		
 		public db_sdlcDataContext(string connection) : 
@@ -152,6 +158,22 @@ namespace new_SDLC.Models
 			get
 			{
 				return this.GetTable<TBL_M_STATUS>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TBL_T_DB> TBL_T_DBs
+		{
+			get
+			{
+				return this.GetTable<TBL_T_DB>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TBL_T_DOC> TBL_T_DOCs
+		{
+			get
+			{
+				return this.GetTable<TBL_T_DOC>();
 			}
 		}
 		
@@ -1319,6 +1341,274 @@ namespace new_SDLC.Models
 					this._NAME = value;
 					this.SendPropertyChanged("NAME");
 					this.OnNAMEChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TBL_T_DB")]
+	public partial class TBL_T_DB : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _DB_ID;
+		
+		private string _NAME;
+		
+		private string _APP_ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDB_IDChanging(System.Guid value);
+    partial void OnDB_IDChanged();
+    partial void OnNAMEChanging(string value);
+    partial void OnNAMEChanged();
+    partial void OnAPP_IDChanging(string value);
+    partial void OnAPP_IDChanged();
+    #endregion
+		
+		public TBL_T_DB()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DB_ID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid DB_ID
+		{
+			get
+			{
+				return this._DB_ID;
+			}
+			set
+			{
+				if ((this._DB_ID != value))
+				{
+					this.OnDB_IDChanging(value);
+					this.SendPropertyChanging();
+					this._DB_ID = value;
+					this.SendPropertyChanged("DB_ID");
+					this.OnDB_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NAME", DbType="VarChar(50)")]
+		public string NAME
+		{
+			get
+			{
+				return this._NAME;
+			}
+			set
+			{
+				if ((this._NAME != value))
+				{
+					this.OnNAMEChanging(value);
+					this.SendPropertyChanging();
+					this._NAME = value;
+					this.SendPropertyChanged("NAME");
+					this.OnNAMEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_APP_ID", DbType="VarChar(50)")]
+		public string APP_ID
+		{
+			get
+			{
+				return this._APP_ID;
+			}
+			set
+			{
+				if ((this._APP_ID != value))
+				{
+					this.OnAPP_IDChanging(value);
+					this.SendPropertyChanging();
+					this._APP_ID = value;
+					this.SendPropertyChanged("APP_ID");
+					this.OnAPP_IDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TBL_T_DOC")]
+	public partial class TBL_T_DOC : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _DOC_ID;
+		
+		private string _VERSION;
+		
+		private System.Nullable<System.DateTime> _RELEASE_DATE;
+		
+		private string _APP_ID;
+		
+		private string _DOC_TYPE_ID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnDOC_IDChanging(System.Guid value);
+    partial void OnDOC_IDChanged();
+    partial void OnVERSIONChanging(string value);
+    partial void OnVERSIONChanged();
+    partial void OnRELEASE_DATEChanging(System.Nullable<System.DateTime> value);
+    partial void OnRELEASE_DATEChanged();
+    partial void OnAPP_IDChanging(string value);
+    partial void OnAPP_IDChanged();
+    partial void OnDOC_TYPE_IDChanging(string value);
+    partial void OnDOC_TYPE_IDChanged();
+    #endregion
+		
+		public TBL_T_DOC()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DOC_ID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid DOC_ID
+		{
+			get
+			{
+				return this._DOC_ID;
+			}
+			set
+			{
+				if ((this._DOC_ID != value))
+				{
+					this.OnDOC_IDChanging(value);
+					this.SendPropertyChanging();
+					this._DOC_ID = value;
+					this.SendPropertyChanged("DOC_ID");
+					this.OnDOC_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VERSION", DbType="VarChar(50)")]
+		public string VERSION
+		{
+			get
+			{
+				return this._VERSION;
+			}
+			set
+			{
+				if ((this._VERSION != value))
+				{
+					this.OnVERSIONChanging(value);
+					this.SendPropertyChanging();
+					this._VERSION = value;
+					this.SendPropertyChanged("VERSION");
+					this.OnVERSIONChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RELEASE_DATE", DbType="Date")]
+		public System.Nullable<System.DateTime> RELEASE_DATE
+		{
+			get
+			{
+				return this._RELEASE_DATE;
+			}
+			set
+			{
+				if ((this._RELEASE_DATE != value))
+				{
+					this.OnRELEASE_DATEChanging(value);
+					this.SendPropertyChanging();
+					this._RELEASE_DATE = value;
+					this.SendPropertyChanged("RELEASE_DATE");
+					this.OnRELEASE_DATEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_APP_ID", DbType="VarChar(50)")]
+		public string APP_ID
+		{
+			get
+			{
+				return this._APP_ID;
+			}
+			set
+			{
+				if ((this._APP_ID != value))
+				{
+					this.OnAPP_IDChanging(value);
+					this.SendPropertyChanging();
+					this._APP_ID = value;
+					this.SendPropertyChanged("APP_ID");
+					this.OnAPP_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DOC_TYPE_ID", DbType="VarChar(50)")]
+		public string DOC_TYPE_ID
+		{
+			get
+			{
+				return this._DOC_TYPE_ID;
+			}
+			set
+			{
+				if ((this._DOC_TYPE_ID != value))
+				{
+					this.OnDOC_TYPE_IDChanging(value);
+					this.SendPropertyChanging();
+					this._DOC_TYPE_ID = value;
+					this.SendPropertyChanged("DOC_TYPE_ID");
+					this.OnDOC_TYPE_IDChanged();
 				}
 			}
 		}

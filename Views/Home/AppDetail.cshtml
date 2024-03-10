@@ -38,11 +38,14 @@
 
             </form>
         </div>
+
         <div class="block-content block-content-full block-content-sm text-end border-top">
             <button type="button" class="btn btn-alt-primary" data-bs-dismiss="modal" onclick="UpdateApp()">
                 UPDATE
             </button>
         </div>
+
+        <!--MENU DIBAWAH-->
 
         <div class="block-header">
             <h4 class="block-title">Document List</h4>
@@ -50,6 +53,7 @@
 
         <div class="row">
             <div class="col-lg-12 space-y-2">
+                <input type="hidden" class="form-control " id="txtDOCID" name="txtDOCID">
                 <!-- Form Inline - Default Style -->
                 <form class="row row-cols-12 g-3 align-items-center" method="POST">
                     <div class="col-3">
@@ -64,7 +68,8 @@
                         </select>
                     </div>
                     <div>
-                        <button type="button" id="btnDynamic" onclick="saveDocList()" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="btnDynamicDOC" onclick="saveDocList()" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="btnDynamicResetDOC" onclick="" class="btn btn-warning">Reset</button>
                     </div>
                 </form>
                 <!-- END Form Inline - Default Style -->
@@ -93,16 +98,18 @@
 
         <div class="row">
             <div class="col-lg-12 space-y-2">
+                <input type="hidden" class="form-control " id="txtVERSIONID" name="txtVERSIONID">
                 <!-- Form Inline - Default Style -->
                 <form class="row row-cols-12 g-3 align-items-center" method="POST">
                     <div class="col-3">
-                        <input type="text" class="form-control" id="txtVersion" name="txtVersion" placeholder="Version ...">
+                        <input type="text" class="form-control" id="txtVersion_verslist" name="txtVersion_verslist" placeholder="Version ...">
                     </div>
                     <div class="col-4">
                         <input type="date" class="form-control" id="txtReleaseDate" name="txtReleaseDate" placeholder="Release Date ...">
                     </div>
                     <div>
-                        <button type="button" id="btnDynamic" onclick="saveVersionNew()" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="btnDynamicVERSION" onclick="saveVersionNew()" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="btnDynamicResetVERSION" onclick="" class="btn btn-warning">Reset</button>
                     </div>
                 </form>
                 <!-- END Form Inline - Default Style -->
@@ -130,13 +137,15 @@
 
         <div class="row">
             <div class="col-lg-12 space-y-2">
+                <input type="hidden" class="form-control " id="txtDBID" name="txtDBID">
                 <!-- Form Inline - Default Style -->
                 <form class="row row-cols-12 g-3 align-items-center" method="POST">
                     <div class="col-3">
                         <input type="text" class="form-control " id="txtName" name="txtName" placeholder="Name ...">
                     </div>
                     <div>
-                        <button type="button" id="btnDynamic" onclick="saveDatabaseList()" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="btnDynamicDB" onclick="saveDatabaseList()" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="btnDynamicResetDB" onclick="" class="btn btn-warning">Reset</button>
                     </div>
                 </form>
                 <!-- END Form Inline - Default Style -->
@@ -156,6 +165,8 @@
                 </tbody>
             </table>
         </div>
+
+        <!--MENU DIBAWAH-->
 
     </div>
 

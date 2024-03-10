@@ -69,6 +69,22 @@
       <Column Name="NAME" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.TBL_T_DB" Member="TBL_T_DBs">
+    <Type Name="TBL_T_DB">
+      <Column Name="DB_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NAME" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="APP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBL_T_DOC" Member="TBL_T_DOCs">
+    <Type Name="TBL_T_DOC">
+      <Column Name="DOC_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VERSION" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RELEASE_DATE" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="APP_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DOC_TYPE_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.cufn_getAllActivities1" Method="cufn_getAllActivities1" IsComposable="true">
     <ElementType Name="cufn_getAllActivities1Result">
       <Column Name="ACTIVITY_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
