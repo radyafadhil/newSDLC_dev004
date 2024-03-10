@@ -453,6 +453,85 @@ namespace new_SDLC.Controllers
             }
         }
 
+        public JsonResult UpdateDocList(ClsDetailApp dtlApp)
+        {
+            try
+            {
+                var cek = dbSdlc.TBL_T_DOCs.Where(x => x.DOC_ID.ToString().ToUpper() == dtlApp.DOC_ID.ToUpper()).FirstOrDefault();
+                cek.VERSION = dtlApp.VERSION_DOCLIST;
+                cek.RELEASE_DATE = dtlApp.RELEASEDATE_DOCLIST;
+                cek.DOC_TYPE_ID = dtlApp.DOCTYPE_DOCLIST;
+
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Update Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err UpdateDocList : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateVersionList(ClsDetailApp dtlApp)
+        {
+            try
+            {
+                var cek = dbSdlc.TBL_T_VERSIONs.Where(x => x.VERSION_ID.ToString().ToUpper() == dtlApp.VERSION_ID.ToUpper()).FirstOrDefault();
+                cek.VERSION = dtlApp.VERSION_VERSIONLIST;
+                cek.DATE = dtlApp.DATE_VERSIONLIST;
+
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Update Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err UpdateVersionList : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateDatabaseList(ClsDetailApp dtlApp)
+        {
+            try
+            {                
+                var cek = dbSdlc.TBL_T_DBs.Where(x => x.DB_ID.ToString().ToUpper() == dtlApp.DB_ID.ToUpper()).FirstOrDefault();
+                cek.NAME = dtlApp.NAME_DBLIST;
+
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Update Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err UpdateDatabaseList : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult UpdateAppDetail(ClsAppList updApp)
+        {
+            try
+            {
+                string id = Session["idApp"].ToString();
+                var get = dbSdlc.TBL_T_APPs.Where(x => x.APP_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                get.APP_NAME = updApp.APP_NAME;
+                get.OWNER = updApp.OWNER;
+                get.PLATFORM_ID = updApp.PLATFORM;
+                get.SERVER_ID = updApp.SERVER;
+                get.STATUS_ID = updApp.STATUS;
+
+                dbSdlc.SubmitChanges();
+
+                return Json(new { Status = true, Message = "Berhasil Update Data ..." }, JsonRequestBehavior.AllowGet);
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, Message = "Err UpdateAppDetail : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 
     public class ClsLogin
@@ -476,17 +555,20 @@ namespace new_SDLC.Controllers
     public class ClsDetailApp
     {
         //DOC LIST
+        public string DOC_ID { get; set; }
         public string VERSION_DOCLIST { get; set; }
         public DateTime RELEASEDATE_DOCLIST { get; set; }
         public string APPID_DOCLIST { get; set; }
         public string DOCTYPE_DOCLIST { get; set; }
 
         //VERSION
+        public string VERSION_ID { get; set; }
         public DateTime DATE_VERSIONLIST { get; set; }
         public string VERSION_VERSIONLIST { get; set; }
         public string APPID_VERSIONLIST { get; set; }
 
         //DATABASELIST
+        public string DB_ID { get; set; }
         public string NAME_DBLIST { get; set; }
         public string APPID_DBLIST { get; set; }
 

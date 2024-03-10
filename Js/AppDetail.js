@@ -392,91 +392,277 @@ function getListDocType() {
 }
 
 function saveDocList() {
+
+    var docid = $("#txtDOCID").val();
     var version = $("#txtVersion").val();
     var releasetype = $("#txtReleaseType").val();
     var ddldoctype = $("#ddl_docType").val();
 
-    var obj = {
-        VERSION_DOCLIST: version,
-        RELEASEDATE_DOCLIST: releasetype,
-        DOCTYPE_DOCLIST: ddldoctype
+    if (docid != "") {
+        var obj = {
+            DOC_ID: docid,
+            VERSION_DOCLIST: version,
+            RELEASEDATE_DOCLIST: releasetype,
+            DOCTYPE_DOCLIST: ddldoctype
+        }
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/Home/UpdateDocList",
+            data: JSON.stringify(obj),
+            success: function (response) {
+                if (response.Status == true) {
+
+                    tableLocation.ajax.reload()
+                    Swal.fire(
+                        'Success!',
+                        response.Message,
+                        'success'
+                    )
+
+                    $("#txtDOCID").val("");
+                    $("#txtVersion").val("")
+                    $("#txtReleaseType").val("");
+                    $("#ddl_docType").val("")
+                    $("#btnDynamicDOC").text("Simpan")
+
+                } else {
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: response.Message,
+                    })
+                }
+            }
+        });
     }
 
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        url: "/Home/InsertNewDocList",
-        data: JSON.stringify(obj),
-        success: function (response) {
-            if (response.Status == true) {
-
-                alert(response.Message);
-                window.location.reload();
-
-            } else {
-
-                alert(response.Message);
-            }
+    else {
+        var obj = {
+            VERSION_DOCLIST: version,
+            RELEASEDATE_DOCLIST: releasetype,
+            DOCTYPE_DOCLIST: ddldoctype
         }
-    });
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/Home/InsertNewDocList",
+            data: JSON.stringify(obj),
+            success: function (response) {
+                if (response.Status == true) {
+
+                    tableLocation.ajax.reload()
+                    Swal.fire(
+                        'Success!',
+                        response.Message,
+                        'success'
+                    )
+
+                    $("#txtDOCID").val("");
+                    $("#txtVersion").val("")
+                    $("#txtReleaseType").val("");
+                    $("#ddl_docType").val("")
+                    $("#btnDynamicDOC").text("Simpan")
+
+                } else {
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: response.Message,
+                    })
+                }
+            }
+        });
+    }
 }
 
 function saveVersionNew() {
+
+    var versionid = $("#txtVERSIONID").val();
     var version = $("#txtVersion_verslist").val();
     var releasedate = $("#txtReleaseDate").val();
 
-    var obj = {
-        VERSION_VERSIONLIST: version,
-        DATE_VERSIONLIST: releasedate
+    if (versionid != "") {
+        var obj = {
+            VERSION_ID: versionid,
+            VERSION_VERSIONLIST: version,
+            DATE_VERSIONLIST: releasedate
+        }
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/Home/UpdateVersionList",
+            data: JSON.stringify(obj),
+            success: function (response) {
+                if (response.Status == true) {
+
+                    tableVersion.ajax.reload()
+                    Swal.fire(
+                        'Success!',
+                        response.Message,
+                        'success'
+                    )
+
+                    $("#txtVERSIONID").val("")
+                    $("#txtVersion_verslist").val("")
+                    $("#txtReleaseDate").val("");
+                    $("#btnDynamicVERSION").text("Simpan")
+
+                } else {
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: response.Message,
+                    })
+                }
+            }
+        });
     }
 
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        url: "/Home/InsertNewVersionList",
-        data: JSON.stringify(obj),
-        success: function (response) {
-            if (response.Status == true) {
-
-                alert(response.Message);
-                window.location.reload();
-
-            } else {
-
-                alert(response.Message);
-            }
+    else {
+        var obj = {
+            VERSION_VERSIONLIST: version,
+            DATE_VERSIONLIST: releasedate
         }
-    });
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/Home/InsertNewVersionList",
+            data: JSON.stringify(obj),
+            success: function (response) {
+                if (response.Status == true) {
+
+                    tableVersion.ajax.reload()
+                    Swal.fire(
+                        'Success!',
+                        response.Message,
+                        'success'
+                    )
+
+                    $("#txtVERSIONID").val("")
+                    $("#txtVersion_verslist").val("")
+                    $("#txtReleaseDate").val("");
+                    $("#btnDynamicVERSION").text("Simpan")
+
+                } else {
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: response.Message,
+                    })
+                }
+            }
+        });
+    }
 
 }
 
 function saveDatabaseList() {
+
+    var dbid = $("#txtDBID").val();
     var namedb = $("#txtName").val();
 
-    var obj = {
-        NAME_DBLIST: namedb
+    if (dbid != "") {
+        var obj = {
+            DB_ID: dbid,
+            NAME_DBLIST: namedb
+        }
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/Home/UpdateDatabaseList",
+            data: JSON.stringify(obj),
+            success: function (response) {
+                if (response.Status == true) {
+
+                    tableDatabase.ajax.reload()
+                    Swal.fire(
+                        'Success!',
+                        response.Message,
+                        'success'
+                    )
+
+                    $("#txtDBID").val("")
+                    $("#txtName").val("")
+                    $("#btnDynamicDB").text("Simpan")
+
+                } else {
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: response.Message,
+                    })
+                }
+            }
+        });
     }
 
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        url: "/Home/InsertNewDatabaseList",
-        data: JSON.stringify(obj),
-        success: function (response) {
-            if (response.Status == true) {
-
-                alert(response.Message);
-                window.location.reload();
-
-            } else {
-
-                alert(response.Message);
-            }
+    else {
+        var obj = {
+            NAME_DBLIST: namedb
         }
-    });
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/Home/InsertNewDatabaseList",
+            data: JSON.stringify(obj),
+            success: function (response) {
+                if (response.Status == true) {
+
+                    tableDatabase.ajax.reload()
+                    Swal.fire(
+                        'Success!',
+                        response.Message,
+                        'success'
+                    )
+
+                    $("#txtDBID").val("")
+                    $("#txtName").val("")
+                    $("#btnDynamicDB").text("Simpan")
+
+                } else {
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: response.Message,
+                    })
+                }
+            }
+        });
+    }
+}
+
+function resetDocList() {
+    $("#txtDOCID").val("");
+    $("#txtVersion").val("")
+    $("#txtReleaseType").val("");
+    $("#ddl_docType").val("")
+    $("#btnDynamicDOC").text("Simpan")
+}
+
+function resetVersionList() {
+    $("#txtVERSIONID").val("")
+    $("#txtVersion_verslist").val("")
+    $("#txtReleaseDate").val("");
+    $("#btnDynamicVERSION").text("Simpan")
+}
+
+function resetDatabaseList() {
+    $("#txtDBID").val("")
+    $("#txtName").val("")
+    $("#btnDynamicDB").text("Simpan")
 }
 
 function returnDate(dateString) {
@@ -498,4 +684,48 @@ function returnDate(dateString) {
     var formattedDate = year + '-' + month + '-' + day;
 
     return formattedDate
+}
+
+function UpdateApp() {
+    var appname = $("#modify_appname").val();
+    var owner = $("#modify_owner").val();
+    var platform = $("#modify_platform").val();
+    var server = $("#modify_server").val();
+    var status = $("#modify_Status").val();
+
+    var obj = {
+        APP_NAME: appname,
+        OWNER: owner,
+        PLATFORM: platform,
+        SERVER: server,
+        STATUS: status
+    }
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        url: "/Home/UpdateAppDetail",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            if (response.Status == true) {
+
+                Swal.fire(
+                    'Success!',
+                    response.Message,
+                    'success'
+                )
+
+                window.location.reload();
+
+            } else {
+
+                Toast.fire({
+                    icon: 'error',
+                    title: response.Message,
+                })
+            }
+        }
+    });
+
 }
