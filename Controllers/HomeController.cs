@@ -55,6 +55,20 @@ namespace new_SDLC.Controllers
             }            
         }
 
+        public ActionResult Report()
+        {
+            if (Session["kodename"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            else
+            {
+                string reportPath = ConfigurationManager.AppSettings["reportPath"].ToString();
+                ViewBag.reportPath = reportPath;
+                return View();
+            }
+        }
         //================================== GET DATA
 
         public JsonResult Logout()
