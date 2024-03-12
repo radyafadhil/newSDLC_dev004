@@ -3,11 +3,21 @@ let tableVersion
 let tableDatabase
 
 $(document).ready(function () {
+    //runFunctions();
+    //getPlatform();
+    //getServer();
+    //getStatus();
+    //getDataById();
+
     getPlatform()
-    getServer();
-    getStatus();
-    getDataById()
-    getListDocType()
+        .then(() => getServer())
+        .then(() => getStatus())
+        .then(() => getDataById())
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+
+    getListDocType();
 
     tableLocation = $('#table-layer-modal_doc').DataTable({
         ajax: '/Home/getListDocument',
@@ -108,6 +118,17 @@ $(document).ready(function () {
     })
         
 });
+
+async function runFunctions() {
+    try {
+        await getPlatform();
+        await getServer();
+        await getStatus();
+        getDataById();
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 
 function handleDeleteDocList(id) {
     Swal.fire({
@@ -281,67 +302,97 @@ function handleEditDBList(id) {
 }
 
 function getPlatform() {
-    $.ajax({
-        url: "/Home/getPlatform",
-        type: "GET",
-        cache: false,
-        success: function (result) {
-            $('#modify_platform').empty();
-            var text = '<option></option>'; // Pastikan Anda mendeklarasikan variabel 'text' dengan 'var' atau 'let'
-            $.each(result.data, function (key, val) {
+    return new Promise((resolve, reject) => {
 
-                text += '<option value="' + val.PLATFORM_ID + '">' + val.NAME + '</option>';
-            });
-            $('#modify_platform').html(text);
-        },
-        error: function (xhr, status, error) {
-            console.error("Terjadi kesalahan saat memuat platform: ", status, error);
-        }
+        $.ajax({
+            url: "/Home/getPlatform",
+            type: "GET",
+            cache: false,
+            success: function (result) {
+                $('#modify_platform').empty();
+                var text = '<option></option>'; // Pastikan Anda mendeklarasikan variabel 'text' dengan 'var' atau 'let'
+                $.each(result.data, function (key, val) {
+
+                    text += '<option value="' + val.PLATFORM_ID + '">' + val.NAME + '</option>';
+                });
+                $('#modify_platform').html(text);
+            },
+            error: function (xhr, status, error) {
+                console.error("Terjadi kesalahan saat memuat platform: ", status, error);
+            }
+        });
+
+        setTimeout(() => {
+            console.log("getPlatform done");
+            resolve();
+        }, 1000); // Contoh timeout 1000 ms (1 detik)
     });
+    console.log("platform");
+    
 }
 
 function getServer() {
-    $.ajax({
-        url: "/Home/getServer",
-        type: "GET",
-        cache: false,
-        success: function (result) {
-            var text = '<option></option>'; // Pastikan deklarasi 'var' atau 'let' untuk 'text'
-            $.each(result.data, function (key, val) {
-                //console.log(val.SERVER_ID, val.NAME);
-                text += '<option value="' + val.SERVER_ID + '">' + val.NAME + '</option>';
-            });
-            $('#modify_server').html(text); // Tambahkan opsi-opsi ke dalam <select>
-            // Jika menggunakan Bootstrap Select atau library serupa:
-            // $('#modify_server').selectpicker('refresh');
-        },
-        error: function (xhr, status, error) {
-            // Tambahkan penanganan error
-            console.error("Terjadi kesalahan saat memuat server: ", status, error);
-        }
+    console.log("server");
+    return new Promise((resolve, reject) => {
+
+        $.ajax({
+            url: "/Home/getServer",
+            type: "GET",
+            cache: false,
+            success: function (result) {
+                var text = '<option></option>'; // Pastikan deklarasi 'var' atau 'let' untuk 'text'
+                $.each(result.data, function (key, val) {
+                    //console.log(val.SERVER_ID, val.NAME);
+                    text += '<option value="' + val.SERVER_ID + '">' + val.NAME + '</option>';
+                });
+                $('#modify_server').html(text); // Tambahkan opsi-opsi ke dalam <select>
+                // Jika menggunakan Bootstrap Select atau library serupa:
+                // $('#modify_server').selectpicker('refresh');
+            },
+            error: function (xhr, status, error) {
+                // Tambahkan penanganan error
+                console.error("Terjadi kesalahan saat memuat server: ", status, error);
+            }
+        });
+
+        setTimeout(() => {
+            console.log("getServer done");
+            resolve();
+        }, 1000); // Contoh timeout 1000 ms (1 detik)
     });
+    
 }
 
 function getStatus() {
-    $.ajax({
-        url: "/Home/getStatus",
-        type: "GET",
-        cache: false,
-        success: function (result) {
-            var text = '<option></option>'; // Pastikan deklarasi 'var' atau 'let' untuk 'text'
-            $.each(result.data, function (key, val) {
+    console.log("status");
+    return new Promise((resolve, reject) => {
 
-                text += '<option value="' + val.STATUS_ID + '">' + val.NAME + '</option>';
-            });
-            $('#modify_Status').html(text); // Tambahkan opsi-opsi ke dalam <select>
-            // Jika menggunakan Bootstrap Select atau library serupa:
-            // $('#modify_Status').selectpicker('refresh');
-        },
-        error: function (xhr, status, error) {
-            // Tambahkan penanganan error
-            console.error("Terjadi kesalahan saat memuat status: ", status, error);
-        }
+        $.ajax({
+            url: "/Home/getStatus",
+            type: "GET",
+            cache: false,
+            success: function (result) {
+                var text = '<option></option>'; // Pastikan deklarasi 'var' atau 'let' untuk 'text'
+                $.each(result.data, function (key, val) {
+
+                    text += '<option value="' + val.STATUS_ID + '">' + val.NAME + '</option>';
+                });
+                $('#modify_Status').html(text); // Tambahkan opsi-opsi ke dalam <select>
+                // Jika menggunakan Bootstrap Select atau library serupa:
+                // $('#modify_Status').selectpicker('refresh');
+            },
+            error: function (xhr, status, error) {
+                // Tambahkan penanganan error
+                console.error("Terjadi kesalahan saat memuat status: ", status, error);
+            }
+        });
+
+        setTimeout(() => {
+            console.log("getStatus done");
+            resolve();
+        }, 1000); // Contoh timeout 1000 ms (1 detik)
     });
+    
 }
 
 function getDataById() {
@@ -350,7 +401,7 @@ function getDataById() {
         type: "GET",
         cache: false,
         success: function (result) {
-
+            console.log(result.data);
             if (result.Status == true) {
 
                // console.log(result.data.SERVER_ID, result.data.STATUS_ID)
