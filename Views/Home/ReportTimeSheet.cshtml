@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "ReportTimesheet";
+}
+
+<div class="block block-rounded" style="height:auto; max-height:800px; overflow:auto;">
+    <div class="block-header">
+        <h2 class="block-title">Report TimeSheet</h2>
+    </div>
+    <div id="frm_input">
+        <div class="panel-body">
+            <iframe src="@Url.Content("http://kphosq102/ReportServer_RPTPROD/Pages/ReportViewer.aspx?/eSDLC/Report_KPP_e_SDLC")" frameborder="0" style="overflow:auto; height:800px; width:100%;"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    //$(document).ready(function () {
+
+    //});
+
+    window.onload = function () {
+        var iframe = document.querySelector('iframe');
+        try {
+            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            var height = iframeDoc.documentElement.scrollHeight || iframeDoc.body.scrollHeight;
+            iframe.style.height = height + 'px';
+        } catch (e) {
+            console.error("Tidak bisa menyesuaikan tinggi iframe karena kebijakan same-origin.", e);
+        }
+    }
+
+</script>
+

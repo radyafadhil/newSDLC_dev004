@@ -4394,6 +4394,8 @@
     <Content Include="Views\Home\AppList.cshtml" />
     <Content Include="Views\Activity\ReviewActivity.cshtml" />
     <Content Include="Views\Home\AppDetail.cshtml" />
+    <Content Include="Views\Home\Report.cshtml" />
+    <Content Include="Views\Home\ReportTimeSheet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -130,11 +130,30 @@
                             </li>
 
                             <li class="nav-main-item">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-grip-vertical"></i>
+                                    <span class="nav-main-link-name">Report</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Home/Report">
+                                            <span class="nav-main-link-name">Dashboard Activity</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Home/ReportTimeSheet">
+                                            <span class="nav-main-link-name">Report Timesheet</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            @*<li class="nav-main-item">
                                 <a class="nav-main-link" href="/Home/Report">
                                     <i class="nav-main-link-icon fa fa-envelope"></i>
                                     <span class="nav-main-link-name">Report</span>
                                 </a>
-                            </li>
+                            </li>*@
 
                         </ul>
                     </div>
@@ -231,12 +250,36 @@
                                     <span class="nav-main-link-name">App</span>
                                 </a>
                             </li>
+
                             <li class="nav-main-item">
+                                <a class="nav-main-link" href="javascript:void(0)">
+                                    <i class="nav-main-link-icon fa fa-home d-none d-xl-inline-block"></i>
+                                    <span class="nav-main-link-name">Report</span>
+                                    <i class="fa fa-chevron-down nav-main-link-arrow"></i> <!-- Penanda panah -->
+                                </a>
+                                <!-- Submenu -->
+                                <ul class="nav-main-submenu">
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Home/Report" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Dashboard Activity</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Home/ReportTimeSheet" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Report Timesheet</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            @*<li class="nav-main-item">
                                 <a class="nav-main-link" href="/Home/Report">
                                     <i class="nav-main-link-icon fa fa-home d-none d-xl-inline-block"></i>
                                     <span class="nav-main-link-name">Report</span>
                                 </a>
-                            </li>
+                            </li>*@
+
                         </ul>
                         <!-- END Header Navigation -->
                     </div>

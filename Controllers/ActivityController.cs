@@ -92,7 +92,8 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var get = db.cufn_getAllActivities1().Where(x => x.START_DATETIME.Value.Year == DateTime.Now.Year).OrderByDescending(x => x.START_DATETIME);
+                var get = db.cufn_getAllActivities1().Where(x => x.START_DATETIME.Value.Year == DateTime.Now.Year && x.PIC_NAME.ToString().ToUpper() == Session["kodename"].ToString())
+                    .OrderByDescending(x => x.START_DATETIME);
                 return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
             }
 
