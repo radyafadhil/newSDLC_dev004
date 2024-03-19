@@ -51,7 +51,7 @@ function getPlatform() {
             $('#input_platform').empty();
             var text = '<option></option>'; // Pastikan Anda mendeklarasikan variabel 'text' dengan 'var' atau 'let'
             $.each(result.data, function (key, val) {
-                console.log(val.PLATFORM_ID, val.NAME);
+                //console.log(val.PLATFORM_ID, val.NAME);
                 text += '<option value="' + val.PLATFORM_ID + '">' + val.NAME + '</option>';
             });
             $('#input_platform').html(text); // Menambahkan opsi ke dalam <select>
@@ -74,7 +74,7 @@ function getServer() {
         success: function (result) {
             var text = '<option></option>'; // Pastikan deklarasi 'var' atau 'let' untuk 'text'
             $.each(result.data, function (key, val) {
-                console.log(val.SERVER_ID, val.NAME);
+                //console.log(val.SERVER_ID, val.NAME);
                 text += '<option value="' + val.SERVER_ID + '">' + val.NAME + '</option>';
             });
             $('#input_server').html(text); // Tambahkan opsi-opsi ke dalam <select>
@@ -96,7 +96,7 @@ function getStatus() {
         success: function (result) {
             var text = '<option></option>'; // Pastikan deklarasi 'var' atau 'let' untuk 'text'
             $.each(result.data, function (key, val) {
-                console.log(val.STATUS_ID, val.NAME);
+                //console.log(val.STATUS_ID, val.NAME);
                 text += '<option value="' + val.STATUS_ID + '">' + val.NAME + '</option>';
             });
             $('#input_Status').html(text); // Tambahkan opsi-opsi ke dalam <select>
@@ -111,12 +111,15 @@ function getStatus() {
 }
 
 function SaveNewApp() {
-    var appname = $("#input_appname");
-    var owner = $("#input_owner");
-    var platform = $("#input_platform");
-    var server = $("#input_server");
-    var status = $("#input_Status");
-    var version = $("#input_Version");
+
+    var appname = $("#input_appname").val();
+    var owner = $("#input_owner").val();
+    var platform = $("#input_platform").val();
+    var server = $("#input_server").val();
+    var status = $("#input_Status").val();
+    var version = $("#input_Version").val();
+
+    console.log(appname, owner, platform, server, status, version)
 
     var obj = {
         APP_NAME: appname,
@@ -146,4 +149,45 @@ function SaveNewApp() {
         }
     });
 
+}
+
+function handleDelete(id) {
+    Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: 'Data akan dihapus ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: `/Home/DeleteAppList?id=${id}`,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (response) {
+
+                    if (response.Status === true) {
+                        tableLocation.ajax.reload()
+                        Swal.fire(
+                            'Deleted!',
+                            'Data berhasil dihapus.',
+                            'success'
+                        )
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.Message,
+                        })
+                    }
+                },
+            })
+        }
+    })
+}
+
+function handleEdit(id) {
+    window.location.href = "/Home/AppDetail?id=" + id
 }

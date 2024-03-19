@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewBag.Title = "AppDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="block block-rounded">
+    <div class="block-header">
+        <h2 class="block-title">Modify App</h2>
+    </div>
+    <div class="block-content block-content-full">
+        <div class="block-content fs-sm">
+            <form class="mb-5" action="be_forms_layouts.html" method="POST" onsubmit="return false;">
+                <div class="mb-4">
+                    <label class="form-label" for="modify_appname">App Name</label>
+                    <input type="text" class="form-control" id="modify_appname" name="modify_appname" placeholder="App Name">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="modify_owner">Owner</label>
+                    <input type="text" class="form-control" id="modify_owner" name="modify_owner" placeholder="Owner">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="modify_platform">Platform</label>
+                    <select class="form-select" id="modify_platform" name="modify_platform" style="width: 100%;">
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="modify_server">Server</label>
+                    <select class="form-select" id="modify_server" name="modify_server" style="width: 100%;">
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="modify_Status">Status</label>
+                    <select class="form-select" id="modify_Status" name="modify_Status" style="width: 100%;">
+                    </select>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="block-content block-content-full block-content-sm text-end border-top">
+            <button type="button" class="btn btn-alt-primary" data-bs-dismiss="modal" onclick="UpdateApp()">
+                UPDATE
+            </button>
+        </div>
+
+        <!--MENU DIBAWAH-->
+
+        <div class="block-header">
+            <h4 class="block-title">Document List</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 space-y-2">
+                <input type="hidden" class="form-control" id="txtDOCID" name="txtDOCID">
+                <!-- Form Inline - Default Style -->
+                <form class="row row-cols-12 g-3 align-items-center" method="POST">
+                    <div class="col-3">
+                        <input type="text" class="form-control " id="txtVersion" name="txtVersion" placeholder="Version ...">
+                    </div>
+                    <div class="col-4">
+                        <input type="date" class="form-control " id="txtReleaseType" name="txtReleaseType" placeholder="Release Date ...">
+                    </div>
+                    <div class="col-4">
+                        <select class="form-select" id="ddl_docType" name="ddl_docType" style="width: 100%;">
+                            <option value="Doc Type ..."></option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="button" id="btnDynamicDOC" onclick="saveDocList()" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="btnDynamicResetDOC" onclick="resetDocList()" class="btn btn-warning">Reset</button>
+                    </div>
+                </form>
+                <!-- END Form Inline - Default Style -->
+            </div>
+        </div>
+
+        <div class="box bg-white shadow p-4 mt-4 rounded">
+            <table id="table-layer-modal_doc" class="table table-striped table-inverse table-responsive">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Action</th>
+                        <th>Version</th>
+                        <th>Release Date</th>
+                        <th>Doc Type</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="block-header">
+            <h4 class="block-title">Version List</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 space-y-2">
+                <input type="hidden" class="form-control " id="txtVERSIONID" name="txtVERSIONID">
+                <!-- Form Inline - Default Style -->
+                <form class="row row-cols-12 g-3 align-items-center" method="POST">
+                    <div class="col-3">
+                        <input type="text" class="form-control" id="txtVersion_verslist" name="txtVersion_verslist" placeholder="Version ...">
+                    </div>
+                    <div class="col-4">
+                        <input type="date" class="form-control" id="txtReleaseDate" name="txtReleaseDate" placeholder="Release Date ...">
+                    </div>
+                    <div>
+                        <button type="button" id="btnDynamicVERSION" onclick="saveVersionNew()" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="btnDynamicResetVERSION" onclick="resetVersionList()" class="btn btn-warning">Reset</button>
+                    </div>
+                </form>
+                <!-- END Form Inline - Default Style -->
+            </div>
+        </div>
+
+        <div class="box bg-white shadow p-4 mt-4 rounded">
+            <table id="table-layer-modal_version" class="table table-striped table-inverse table-responsive">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Action</th>
+                        <th>Version</th>
+                        <th>Release Date</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="block-header">
+            <h4 class="block-title">Database List</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 space-y-2">
+                <input type="hidden" class="form-control " id="txtDBID" name="txtDBID">
+                <!-- Form Inline - Default Style -->
+                <form class="row row-cols-12 g-3 align-items-center" method="POST">
+                    <div class="col-3">
+                        <input type="text" class="form-control " id="txtName" name="txtName" placeholder="Name ...">
+                    </div>
+                    <div>
+                        <button type="button" id="btnDynamicDB" onclick="saveDatabaseList()" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="btnDynamicResetDB" onclick="resetDatabaseList()" class="btn btn-warning">Reset</button>
+                    </div>
+                </form>
+                <!-- END Form Inline - Default Style -->
+            </div>
+        </div>
+
+        <div class="box bg-white shadow p-4 mt-4 rounded">
+            <table id="table-layer-modal_database" class="table table-striped table-inverse table-responsive">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Action</th>
+                        <th>Name</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <!--MENU DIBAWAH-->
+
+    </div>
+
+</div>
+<!-- END Inline -->
+
+@section scripts {
+    <script src="~/Js/AppDetail.js"></script>
+}

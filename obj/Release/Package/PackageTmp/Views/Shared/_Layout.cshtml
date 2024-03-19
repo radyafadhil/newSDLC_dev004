@@ -61,41 +61,100 @@
                 <!-- END Side Header -->
                 <!-- Sidebar Scrolling -->
                 <div class="js-sidebar-scroll">
-                    <!-- Side Main Navigation -->
+                    <!-- Side User -->
                     <div class="content-side content-side-full">
-                        <!--
-                        Mobile navigation, desktop navigation can be found in #page-header
-
-                        If you would like to use the same navigation in both mobiles and desktops, you can use exactly the same markup inside sidebar and header navigation ul lists
-                        -->
                         <ul class="nav-main">
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="">
-                                    <i class="nav-main-link-icon fa fa-flag"></i>
-                                    <span class="nav-main-link-name">Notifications</span>
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-grip-vertical"></i>
+                                    <span class="nav-main-link-name">Master Data</span>
                                 </a>
-
-                                <!-- Submenu untuk Notifications -->
                                 <ul class="nav-main-submenu">
                                     <li class="nav-main-item">
-                                        <a href="#" class="nav-main-link">
-                                            <span class="nav-main-link-name">Submenu 1</span>
+                                        <a class="nav-main-link" href="/Master/MasterDocument">
+                                            <span class="nav-main-link-name">Document Type</span>
                                         </a>
                                     </li>
                                     <li class="nav-main-item">
-                                        <a href="#" class="nav-main-link">
-                                            <span class="nav-main-link-name">Submenu 2</span>
+                                        <a class="nav-main-link" href="/Master/MasterPIC">
+                                            <span class="nav-main-link-name">Person In Charge</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Master/MasterPlatform">
+                                            <span class="nav-main-link-name">Platform</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Master/MasterServer">
+                                            <span class="nav-main-link-name">Server</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Master/MasterStatus">
+                                            <span class="nav-main-link-name">Status</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Master/MasterStep">
+                                            <span class="nav-main-link-name">Step</span>
                                         </a>
                                     </li>
                                 </ul>
-
                             </li>
+
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-grip-vertical"></i>
+                                    <span class="nav-main-link-name">Activity</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Activity/Index">
+                                            <span class="nav-main-link-name">Maintain Activity</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Activity/ReviewActivity">
+                                            <span class="nav-main-link-name">Review Activity</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="/Home/AppList">
                                     <i class="nav-main-link-icon fa fa-envelope"></i>
-                                    <span class="nav-main-link-name">Messages</span>
+                                    <span class="nav-main-link-name">App</span>
                                 </a>
                             </li>
+
+                            <li class="nav-main-item">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-grip-vertical"></i>
+                                    <span class="nav-main-link-name">Report</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Home/Report">
+                                            <span class="nav-main-link-name">Dashboard Activity</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="/Home/ReportTimeSheet">
+                                            <span class="nav-main-link-name">Report Timesheet</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            @*<li class="nav-main-item">
+                                <a class="nav-main-link" href="/Home/Report">
+                                    <i class="nav-main-link-icon fa fa-envelope"></i>
+                                    <span class="nav-main-link-name">Report</span>
+                                </a>
+                            </li>*@
+
                         </ul>
                     </div>
                     <!-- END Side Main Navigation -->
@@ -145,7 +204,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Master/MasterSErver" data-toggle="layout" data-action="side_overlay_toggle">
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Master/MasterServer" data-toggle="layout" data-action="side_overlay_toggle">
                                             <span>Server</span>
                                         </a>
                                     </li>
@@ -191,12 +250,36 @@
                                     <span class="nav-main-link-name">App</span>
                                 </a>
                             </li>
+
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="javascript:void(0)">
                                     <i class="nav-main-link-icon fa fa-home d-none d-xl-inline-block"></i>
                                     <span class="nav-main-link-name">Report</span>
+                                    <i class="fa fa-chevron-down nav-main-link-arrow"></i> <!-- Penanda panah -->
                                 </a>
+                                <!-- Submenu -->
+                                <ul class="nav-main-submenu">
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Home/Report" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Dashboard Activity</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="/Home/ReportTimeSheet" data-toggle="layout" data-action="side_overlay_toggle">
+                                            <span>Report Timesheet</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
                             </li>
+
+                            @*<li class="nav-main-item">
+                                <a class="nav-main-link" href="/Home/Report">
+                                    <i class="nav-main-link-icon fa fa-home d-none d-xl-inline-block"></i>
+                                    <span class="nav-main-link-name">Report</span>
+                                </a>
+                            </li>*@
+
                         </ul>
                         <!-- END Header Navigation -->
                     </div>
@@ -280,20 +363,6 @@
 
 <script>
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var navLinks = document.querySelectorAll('.nav-main-link');
-
-        navLinks.forEach(function (link) {
-            link.addEventListener('click', function (event) {
-                var nextElement = this.nextElementSibling;
-                if (nextElement && nextElement.classList.contains('nav-main-submenu')) {
-                    event.preventDefault(); // Menghentikan link dari navigasi
-                    nextElement.style.display = (nextElement.style.display == 'block' ? 'none' : 'block'); // Toggle display
-                }
-            });
-        });
-    });
-
     function Logout() {
 
         $.ajax({
@@ -312,34 +381,3 @@
         });
     }
 </script>
-
-<style>
-    .nav-main-item {
-        position: relative;
-    }
-
-    .nav-main-link-arrow {
-        margin-left: 5px; /* Atur jarak panah dari teks */
-    }
-
-    .nav-main-submenu {
-        display: none;
-        position: absolute;
-        left: 0;
-        top: 100%; /* Pastikan submenu muncul di bawah item induk */
-        z-index: 1000; /* Pastikan submenu muncul di atas konten lain */
-    }
-
-    .nav-main-item:hover .nav-main-submenu {
-        display: block; /* Menampilkan submenu saat item induk di-hover */
-    }
-
-    .nav-main-submenu {
-        display: none; /* Sembunyikan submenu secara default */
-    }
-
-    .nav-main-item:hover .nav-main-submenu {
-        display: block; /* Tampilkan submenu saat item induk di-hover */
-    }
-
-</style>

@@ -289,15 +289,39 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var delete = dbSdlc.TBL_T_APPs.Where(x => x.APP_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
-                dbSdlc.TBL_T_APPs.DeleteOnSubmit(delete);
+                string kodeName = Session["kodename"].ToString().ToUpper();
+                if (kodeName == "DEV004")
+                {
+                    var delete = dbSdlc.TBL_T_APPs.Where(x => x.APP_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_APPs.DeleteOnSubmit(delete);
 
-                var delVersion = dbSdlc.TBL_T_VERSIONs.Where(x => x.APP_ID.ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
-                dbSdlc.TBL_T_VERSIONs.DeleteOnSubmit(delVersion);
+                    var delVersion = dbSdlc.TBL_T_VERSIONs.Where(x => x.APP_ID.ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_VERSIONs.DeleteOnSubmit(delVersion);
 
-                dbSdlc.SubmitChanges();
+                    dbSdlc.SubmitChanges();
 
-                return Json(new { Status = true, Message = "Berhasil Hapus ..." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = true, Message = "Berhasil Hapus ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                else if (kodeName == "DEV007")
+                {
+                    var delete = dbSdlc.TBL_T_APPs.Where(x => x.APP_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_APPs.DeleteOnSubmit(delete);
+
+                    var delVersion = dbSdlc.TBL_T_VERSIONs.Where(x => x.APP_ID.ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_VERSIONs.DeleteOnSubmit(delVersion);
+
+                    dbSdlc.SubmitChanges();
+
+                    return Json(new { Status = true, Message = "Berhasil Hapus ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                else
+                {
+                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                
             }
 
             catch (Exception ex)
@@ -436,11 +460,31 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var delete = dbSdlc.TBL_T_DOCs.Where(x => x.DOC_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
-                dbSdlc.TBL_T_DOCs.DeleteOnSubmit(delete);
-                dbSdlc.SubmitChanges();
+                string kodeName = Session["kodename"].ToString().ToUpper();
+                if (kodeName == "DEV004")
+                {
+                    var delete = dbSdlc.TBL_T_DOCs.Where(x => x.DOC_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_DOCs.DeleteOnSubmit(delete);
+                    dbSdlc.SubmitChanges();
 
-                return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                else if (kodeName == "DEV007")
+                {
+                    var delete = dbSdlc.TBL_T_DOCs.Where(x => x.DOC_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_DOCs.DeleteOnSubmit(delete);
+                    dbSdlc.SubmitChanges();
+
+                    return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                else
+                {
+                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                
             }
 
             catch (Exception ex)
@@ -453,11 +497,31 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var delete = dbSdlc.TBL_T_VERSIONs.Where(x => x.VERSION_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
-                dbSdlc.TBL_T_VERSIONs.DeleteOnSubmit(delete);
-                dbSdlc.SubmitChanges();
+                string kodeName = Session["kodename"].ToString().ToUpper();
+                if (kodeName == "DEV004")
+                {
+                    var delete = dbSdlc.TBL_T_VERSIONs.Where(x => x.VERSION_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_VERSIONs.DeleteOnSubmit(delete);
+                    dbSdlc.SubmitChanges();
 
-                return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                else if (kodeName == "DEV007")
+                {
+                    var delete = dbSdlc.TBL_T_VERSIONs.Where(x => x.VERSION_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_VERSIONs.DeleteOnSubmit(delete);
+                    dbSdlc.SubmitChanges();
+
+                    return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                else
+                {
+                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                
             }
 
             catch (Exception ex)
@@ -470,11 +534,31 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var delete = dbSdlc.TBL_T_DBs.Where(x => x.DB_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
-                dbSdlc.TBL_T_DBs.DeleteOnSubmit(delete);
-                dbSdlc.SubmitChanges();
+                string kodeName = Session["kodename"].ToString().ToUpper();
+                if (kodeName == "DEV004")
+                {
+                    var delete = dbSdlc.TBL_T_DBs.Where(x => x.DB_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_DBs.DeleteOnSubmit(delete);
+                    dbSdlc.SubmitChanges();
 
-                return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                else if (kodeName == "DEV007")
+                {
+                    var delete = dbSdlc.TBL_T_DBs.Where(x => x.DB_ID.ToString().ToUpper() == id.ToString().ToUpper()).FirstOrDefault();
+                    dbSdlc.TBL_T_DBs.DeleteOnSubmit(delete);
+                    dbSdlc.SubmitChanges();
+
+                    return Json(new { Status = true, Message = "Berhasil Hapus Data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                else
+                {
+                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                }
+
+                
             }
 
             catch (Exception ex)

@@ -153,6 +153,6 @@ D:\DEV004\Projects\newSDLC\bin\Antlr3.Runtime.pdb
 D:\DEV004\Projects\newSDLC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.csproj.AssemblyReference.cache
 D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.csproj.CoreCompileInputs.cache
-D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.csproj.CopyComplete
+D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.csproj.Up2Date
 D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.dll
 D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.pdb
