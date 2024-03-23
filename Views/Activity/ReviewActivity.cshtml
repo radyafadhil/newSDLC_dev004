@@ -10,8 +10,9 @@
     </div>
     <div class="block-content block-content-full">
 
-        <div class="box bg-white shadow p-4 mt-4 rounded">
-            <table id="table-layer-group" class="table table-striped table-inverse table-responsive">
+        <div class="box bg-white shadow p-4 mt-4 rounded table-responsive">
+            <div id="customSearchContainer"></div>
+            <table id="table-layer-group" class="table table-striped table-inverse">
                 <thead class="thead-inverse">
                     <tr>
                         <th>Start Date</th>
@@ -103,7 +104,11 @@
 
                 ],
 
+                "pagingType": "numbers",
+
             })
+
+            $(".dataTables_filter").appendTo("#customSearchContainer");
         });
 
     </script>

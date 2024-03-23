@@ -27,12 +27,16 @@ $(document).ready(function () {
             {
                 mData: 'DOC_ID',
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEditDocList('${data}')" style="text-decoration: none">
-                       <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
-                       </a>
-                       <button class="btn btn-danger" onclick="handleDeleteDocList('${data}')">
-                       <i class="fa-solid fa-trash text-light"></i></button>
-                       `
+                    return `<div class="action-buttons">
+                            <a onclick="handleEditDocList('${data}')" style="text-decoration: none">
+                                <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
+                            </a>
+
+                            <a onclick="handleDeleteDocList('${data}')" style="text-decoration: none">
+                                <button class="btn btn-danger action-button"><i class="fa-solid fa-trash text-light"></i></button>
+                            </a>
+                        </div>`
+
                 },
                 width: '200px',
             },
@@ -56,6 +60,7 @@ $(document).ready(function () {
                 mData: 'DOC_TYPE',
             },
         ],
+        "searching": false
     })
 
     tableVersion = $('#table-layer-modal_version').DataTable({
@@ -66,12 +71,15 @@ $(document).ready(function () {
             {
                 mData: 'VERSION_ID',
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEditVersionList('${data}')" style="text-decoration: none">
-                       <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
-                       </a>
-                       <button class="btn btn-danger" onclick="handleDeleteVersionList('${data}')">
-                       <i class="fa-solid fa-trash text-light"></i></button>
-                       `
+                    return `<div class="action-buttons">
+                            <a onclick="handleEditVersionList('${data}')" style="text-decoration: none">
+                                <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
+                            </a>
+
+                            <a onclick="handleDeleteVersionList('${data}')" style="text-decoration: none">
+                                <button class="btn btn-danger action-button"><i class="fa-solid fa-trash text-light"></i></button>
+                            </a>
+                        </div>`
                 },
                 width: '200px',
             },
@@ -92,6 +100,7 @@ $(document).ready(function () {
                 }
             },
         ],
+        "searching": false
     })
 
     tableDatabase = $('#table-layer-modal_database').DataTable({
@@ -102,12 +111,15 @@ $(document).ready(function () {
             {
                 mData: 'DB_ID',
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEditDBList('${data}')" style="text-decoration: none">
-                       <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
-                       </a>
-                       <button class="btn btn-danger" onclick="handleDeleteDBList('${data}')">
-                       <i class="fa-solid fa-trash text-light"></i></button>
-                       `
+                    return `<div class="action-buttons">
+                            <a onclick="handleEditDBList('${data}')" style="text-decoration: none">
+                                <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
+                            </a>
+
+                            <a onclick="handleDeleteDBList('${data}')" style="text-decoration: none">
+                                <button class="btn btn-danger action-button"><i class="fa-solid fa-trash text-light"></i></button>
+                            </a>
+                        </div>`
                 },
                 width: '200px',
             },
@@ -115,6 +127,7 @@ $(document).ready(function () {
                 mData: 'NAME',
             }
         ],
+        "searching": false
     })
         
 });
@@ -156,10 +169,11 @@ function handleDeleteDocList(id) {
                             'success'
                         )
                     } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: response.Message,
-                        })
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
                     }
                 },
             })
@@ -214,10 +228,11 @@ function handleDeleteVersionList(id) {
                             'success'
                         )
                     } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: response.Message,
-                        })
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
                     }
                 },
             })
@@ -271,10 +286,11 @@ function handleDeleteDBList(id) {
                             'success'
                         )
                     } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: response.Message,
-                        })
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
                     }
                 },
             })
@@ -481,10 +497,11 @@ function saveDocList() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
                 }
             }
         });
@@ -521,10 +538,11 @@ function saveDocList() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
                 }
             }
         });
@@ -567,10 +585,11 @@ function saveVersionNew() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
                 }
             }
         });
@@ -605,10 +624,11 @@ function saveVersionNew() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
                 }
             }
         });
@@ -649,10 +669,11 @@ function saveDatabaseList() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
                 }
             }
         });
@@ -685,10 +706,11 @@ function saveDatabaseList() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
                 }
             }
         });
@@ -771,10 +793,11 @@ function UpdateApp() {
 
             } else {
 
-                Toast.fire({
-                    icon: 'error',
-                    title: response.Message,
-                })
+                Swal.fire(
+                    'Error!',
+                    response.Message,
+                    'error'
+                )
             }
         }
     });

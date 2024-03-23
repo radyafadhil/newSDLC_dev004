@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+
     <title>KPP eSDLC</title>
 
     <!-- Icons -->
@@ -24,6 +28,8 @@
     <link rel="stylesheet" id="css-main" href="~/Content/assets/css/codebase.min.css">
     <link rel="stylesheet" href="~/Content/Assets/js/plugins/sweetalert2/sweetalert2.min.css"> @*SWAL POPUP*@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+
+    <link href="~/Content/CustomCSS.css" rel="stylesheet" />
 
     @RenderSection("links", required: false)
 
@@ -375,9 +381,10 @@
                 }
 
                 else {
-                    alert(result.Message)
+                    alert(response.Message)
                 }
             }
         });
     }
+
 </script>

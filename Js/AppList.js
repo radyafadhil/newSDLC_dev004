@@ -9,12 +9,15 @@ $(document).ready(function () {
             {
                 mData: 'APP_ID',
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEdit('${data}')" style="text-decoration: none">
-                       <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
-                       </a>
-                       <button class="btn btn-danger" onclick="handleDelete('${data}')">
-                       <i class="fa-solid fa-trash text-light"></i></button>
-                       `
+                return `<div class="action-buttons">
+                            <a onclick="handleEdit('${data}')" style="text-decoration: none">
+                                <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
+                            </a>
+
+                            <a onclick="handleDelete('${data}')" style="text-decoration: none">
+                                <button class="btn btn-danger action-button"><i class="fa-solid fa-trash text-light"></i></button>
+                            </a>
+                        </div>`
                 },
                 width: '200px',
             },
@@ -34,7 +37,20 @@ $(document).ready(function () {
                 mData: 'STATUS',
             },
         ],
+
+        "pagingType": "numbers",
+        //"language": {
+        //    "paginate": {
+        //        "first": "<<",
+        //        "last": ">>",
+        //        "previous": "<",
+        //        "next": ">"
+        //    }
+        //}
     })
+
+
+    $(".dataTables_filter").appendTo("#customSearchContainer");
 
     getPlatform();
     getServer();
@@ -139,12 +155,20 @@ function SaveNewApp() {
         success: function (response) {
             if (response.Status == true) {
 
-                alert(response.Message);
+                Swal.fire(
+                    'Success!',
+                    response.Message,
+                    'success'
+                )
                 window.location.reload();
 
             } else {
 
-                alert(response.Message);
+                Swal.fire(
+                    'Error!',
+                    response.Message,
+                    'error'
+                )
             }
         }
     });
@@ -177,10 +201,11 @@ function handleDelete(id) {
                             'success'
                         )
                     } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: response.Message,
-                        })
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
                     }
                 },
             })

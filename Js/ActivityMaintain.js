@@ -169,15 +169,33 @@ function CRUD_Activity() {
         success: function (response) {
             if (response.Status == true) {
 
-                alert(response.Message);
+                Swal.fire(
+                    'Success!',
+                    response.Message,
+                    'success'
+                )
                 window.location.reload();
 
             } else {
 
-                alert(response.Message);
+                Swal.fire(
+                    'Error!',
+                    response.Message,
+                    'error'
+                )
             }
         }
     });
-
-
 }
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    },
+})

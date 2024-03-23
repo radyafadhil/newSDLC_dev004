@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.Services.Description;
+using Antlr.Runtime.Misc;
 using FormsAuth;
 using new_SDLC.Models;
 
@@ -106,9 +107,19 @@ namespace new_SDLC.Controllers
         {
             try
             {
+                bool abc = false;
                 var ldap = new LdapAuthentication("LDAP://KPPMINING:389");
-                //var abc = ldap.IsAuthenticated("KPPMINING", clsLogin.Username, clsLogin.Password);
-                var abc = true;
+
+                if (ConfigurationManager.AppSettings["conditionServer"].ToString() == "false")
+                {
+                    abc = true;
+                }
+
+                else
+                {
+                    abc = ldap.IsAuthenticated("KPPMINING", clsLogin.Username, clsLogin.Password);
+                    abc = true;
+                }
                 
                 if (abc == true)
                 {
