@@ -47,14 +47,21 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var get = db.TBL_M_DOC_TYPEs.Where(x => x.DOC_TYPE_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    var get = db.TBL_M_DOC_TYPEs.Where(x => x.DOC_TYPE_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                    return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                }                
             }
 
             catch (Exception ex)
             {
-                return Json(new { Status = false, Message = "Err DeleteDocType :" + ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = false, Message = "Err getDetailDoc :" + ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -62,26 +69,34 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                string kodeName = Session["kodename"].ToString().ToUpper();
-                if (kodeName == "DEV004")
+                if (Session["kodename"] == null)
                 {
-                    var delete = db.TBL_M_DOC_TYPEs.Where(x => x.DOC_TYPE_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_DOC_TYPEs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
-                }
-
-                else if (kodeName == "DEV007")
-                {
-                    var delete = db.TBL_M_DOC_TYPEs.Where(x => x.DOC_TYPE_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_DOC_TYPEs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                    string kodeName = Session["kodename"].ToString().ToUpper();
+                    if (kodeName == "DEV004")
+                    {
+                        var delete = db.TBL_M_DOC_TYPEs.Where(x => x.DOC_TYPE_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_DOC_TYPEs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else if (kodeName == "DEV007")
+                    {
+                        var delete = db.TBL_M_DOC_TYPEs.Where(x => x.DOC_TYPE_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_DOC_TYPEs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 
             }
@@ -96,13 +111,21 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                TBL_M_DOC_TYPE newdata = new TBL_M_DOC_TYPE();
-                newdata.DOC_TYPE_ID = Guid.NewGuid();
-                newdata.TYPE = clsmaster.TYPE;
-                db.TBL_M_DOC_TYPEs.InsertOnSubmit(newdata);
-                db.SubmitChanges();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    TBL_M_DOC_TYPE newdata = new TBL_M_DOC_TYPE();
+                    newdata.DOC_TYPE_ID = Guid.NewGuid();
+                    newdata.TYPE = clsmaster.TYPE;
+                    db.TBL_M_DOC_TYPEs.InsertOnSubmit(newdata);
+                    db.SubmitChanges();
+
+                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                }
             }
 
             catch (Exception ex)
@@ -115,22 +138,28 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var update = db.TBL_M_DOC_TYPEs.Where(x => x.DOC_TYPE_ID.ToString().ToUpper() == clsmaster.ID_DOC.ToUpper()).FirstOrDefault();
-
-                if (update != null)
+                if (Session["kodename"] == null)
                 {
-                    update.TYPE = clsmaster.TYPE.ToString();
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    var update = db.TBL_M_DOC_TYPEs.Where(x => x.DOC_TYPE_ID.ToString().ToUpper() == clsmaster.ID_DOC.ToUpper()).FirstOrDefault();
+
+                    if (update != null)
+                    {
+                        update.TYPE = clsmaster.TYPE.ToString();
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-
-
             }
 
             catch (Exception ex)
@@ -174,28 +203,36 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                string kodeName = Session["kodename"].ToString().ToUpper();
-                if (kodeName == "DEV004")
+                if (Session["kodename"] == null)
                 {
-                    var delete = db.TBL_M_PICs.Where(x => x.PIC_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_PICs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
-                }
-
-                else if (kodeName == "DEV007")
-                {
-                    var delete = db.TBL_M_PICs.Where(x => x.PIC_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_PICs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                    string kodeName = Session["kodename"].ToString().ToUpper();
+                    if (kodeName == "DEV004")
+                    {
+                        var delete = db.TBL_M_PICs.Where(x => x.PIC_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_PICs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else if (kodeName == "DEV007")
+                    {
+                        var delete = db.TBL_M_PICs.Where(x => x.PIC_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_PICs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 
             }
@@ -210,9 +247,16 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var get = db.TBL_M_PICs.Where(x => x.PIC_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    var get = db.TBL_M_PICs.Where(x => x.PIC_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                    return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                }                
             }
 
             catch (Exception ex)
@@ -225,32 +269,40 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var cekDev = db.TBL_M_PICs.Where(x => x.NAME.ToUpper() == clsmaster.KODE_PIC.ToUpper()).FirstOrDefault();
-                var cekDevName = db.TBL_M_PICs.Where(x => x.PIC_DEV.ToUpper() == clsmaster.NAME_PIC.ToUpper()).FirstOrDefault();
-
-                if (cekDev != null)
+                if (Session["kodename"] == null)
                 {
-                    return Json(new { Status = false, Message = clsmaster.KODE_PIC.ToUpper() + " sudah terdaftar sebelumnya ... " }, JsonRequestBehavior.AllowGet);
-                }
-
-                else if (cekDevName != null)
-                {
-                    return Json(new { Status = false, Message = clsmaster.NAME_PIC.ToUpper() + " sudah terdaftar sebelumnya ... " }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    TBL_M_PIC newdt = new TBL_M_PIC();
-                    newdt.PIC_ID = Guid.NewGuid();
-                    newdt.NAME = clsmaster.KODE_PIC.ToString().ToUpper();
-                    newdt.PIC_DEV = clsmaster.NAME_PIC.ToString().ToUpper();
-                    newdt.PIC_OPR = clsmaster.OPR_PIC?.ToString().ToUpper();
+                    var cekDev = db.TBL_M_PICs.Where(x => x.NAME.ToUpper() == clsmaster.KODE_PIC.ToUpper()).FirstOrDefault();
+                    var cekDevName = db.TBL_M_PICs.Where(x => x.PIC_DEV.ToUpper() == clsmaster.NAME_PIC.ToUpper()).FirstOrDefault();
 
-                    db.TBL_M_PICs.InsertOnSubmit(newdt);
-                    db.SubmitChanges();
+                    if (cekDev != null)
+                    {
+                        return Json(new { Status = false, Message = clsmaster.KODE_PIC.ToUpper() + " sudah terdaftar sebelumnya ... " }, JsonRequestBehavior.AllowGet);
+                    }
 
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    else if (cekDevName != null)
+                    {
+                        return Json(new { Status = false, Message = clsmaster.NAME_PIC.ToUpper() + " sudah terdaftar sebelumnya ... " }, JsonRequestBehavior.AllowGet);
+                    }
 
+                    else
+                    {
+                        TBL_M_PIC newdt = new TBL_M_PIC();
+                        newdt.PIC_ID = Guid.NewGuid();
+                        newdt.NAME = clsmaster.KODE_PIC.ToString().ToUpper();
+                        newdt.PIC_DEV = clsmaster.NAME_PIC.ToString().ToUpper();
+                        newdt.PIC_OPR = clsmaster.OPR_PIC?.ToString().ToUpper();
+
+                        db.TBL_M_PICs.InsertOnSubmit(newdt);
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+
+                    }
                 }
             }
 
@@ -264,24 +316,30 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var update = db.TBL_M_PICs.Where(x => x.PIC_ID.ToString().ToUpper() == clsmaster.ID_PIC.ToUpper()).FirstOrDefault();
-
-                if (update != null)
+                if (Session["kodename"] == null)
                 {
-                    update.NAME = clsmaster.KODE_PIC.ToString().ToUpper();
-                    update.PIC_DEV = clsmaster.NAME_PIC.ToString().ToUpper();
-                    update.PIC_OPR = clsmaster.OPR_PIC?.ToString().ToUpper();
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    var update = db.TBL_M_PICs.Where(x => x.PIC_ID.ToString().ToUpper() == clsmaster.ID_PIC.ToUpper()).FirstOrDefault();
+
+                    if (update != null)
+                    {
+                        update.NAME = clsmaster.KODE_PIC.ToString().ToUpper();
+                        update.PIC_DEV = clsmaster.NAME_PIC.ToString().ToUpper();
+                        update.PIC_OPR = clsmaster.OPR_PIC?.ToString().ToUpper();
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-
-
             }
 
             catch (Exception ex)
@@ -325,9 +383,16 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var get = db.TBL_M_PLATFORMs.Where(x => x.PLATFORM_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    var get = db.TBL_M_PLATFORMs.Where(x => x.PLATFORM_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                    return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                }                
             }
 
             catch (Exception ex)
@@ -340,29 +405,37 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                string kodeName = Session["kodename"].ToString().ToUpper();
-                if (kodeName == "DEV004")
+                if (Session["kodename"] == null)
                 {
-                    var delete = db.TBL_M_PLATFORMs.Where(x => x.PLATFORM_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_PLATFORMs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
-                }
-
-                else if (kodeName == "DEV007")
-                {
-                    var delete = db.TBL_M_PLATFORMs.Where(x => x.PLATFORM_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_PLATFORMs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
-                }
+                    string kodeName = Session["kodename"].ToString().ToUpper();
+                    if (kodeName == "DEV004")
+                    {
+                        var delete = db.TBL_M_PLATFORMs.Where(x => x.PLATFORM_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_PLATFORMs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else if (kodeName == "DEV007")
+                    {
+                        var delete = db.TBL_M_PLATFORMs.Where(x => x.PLATFORM_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_PLATFORMs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                    }
+                }                
             }
 
             catch (Exception ex)
@@ -375,13 +448,21 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                TBL_M_PLATFORM newdata = new TBL_M_PLATFORM();
-                newdata.PLATFORM_ID = Guid.NewGuid();
-                newdata.NAME = clsmaster.NAME_PLATFORM;
-                db.TBL_M_PLATFORMs.InsertOnSubmit(newdata);
-                db.SubmitChanges();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    TBL_M_PLATFORM newdata = new TBL_M_PLATFORM();
+                    newdata.PLATFORM_ID = Guid.NewGuid();
+                    newdata.NAME = clsmaster.NAME_PLATFORM;
+                    db.TBL_M_PLATFORMs.InsertOnSubmit(newdata);
+                    db.SubmitChanges();
+
+                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                }
             }
 
             catch (Exception ex)
@@ -394,21 +475,28 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var update = db.TBL_M_PLATFORMs.Where(x => x.PLATFORM_ID.ToString().ToUpper() == clsmaster.ID_PLATFORM.ToUpper()).FirstOrDefault();
-
-                if (update != null)
+                if (Session["kodename"] == null)
                 {
-                    update.NAME = clsmaster.NAME_PLATFORM.ToString();
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
-                }
+                    var update = db.TBL_M_PLATFORMs.Where(x => x.PLATFORM_ID.ToString().ToUpper() == clsmaster.ID_PLATFORM.ToUpper()).FirstOrDefault();
 
+                    if (update != null)
+                    {
+                        update.NAME = clsmaster.NAME_PLATFORM.ToString();
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
 
             }
 
@@ -453,30 +541,37 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                string kodeName = Session["kodename"].ToString().ToUpper();
-                if (kodeName == "DEV004")
+                if (Session["kodename"] == null)
                 {
-                    var delete = db.TBL_M_SERVERs.Where(x => x.SERVER_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_SERVERs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
-                }
-
-                else if (kodeName == "DEV007")
-                {
-                    var delete = db.TBL_M_SERVERs.Where(x => x.SERVER_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_SERVERs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
-                }
+                    string kodeName = Session["kodename"].ToString().ToUpper();
+                    if (kodeName == "DEV004")
+                    {
+                        var delete = db.TBL_M_SERVERs.Where(x => x.SERVER_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_SERVERs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
 
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else if (kodeName == "DEV007")
+                    {
+                        var delete = db.TBL_M_SERVERs.Where(x => x.SERVER_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_SERVERs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
                 
             }
 
@@ -490,9 +585,16 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var get = db.TBL_M_SERVERs.Where(x => x.SERVER_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    var get = db.TBL_M_SERVERs.Where(x => x.SERVER_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                    return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                }                
             }
 
             catch (Exception ex)
@@ -505,25 +607,32 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var cekDev = db.TBL_M_SERVERs.Where(x => x.NAME.ToUpper() == clsmaster.NAME_SERVER.ToUpper()).FirstOrDefault();
-                
-                if (cekDev != null)
+                if (Session["kodename"] == null)
                 {
-                    return Json(new { Status = false, Message = clsmaster.NAME_SERVER.ToUpper() + " sudah terdaftar sebelumnya ... " }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    TBL_M_SERVER newdt = new TBL_M_SERVER();
-                    newdt.SERVER_ID = Guid.NewGuid();
-                    newdt.NAME = clsmaster.NAME_SERVER.ToUpper();
-                    newdt.REMARKS = clsmaster.REMARKS;
+                    var cekDev = db.TBL_M_SERVERs.Where(x => x.NAME.ToUpper() == clsmaster.NAME_SERVER.ToUpper()).FirstOrDefault();
+                    if (cekDev != null)
+                    {
+                        return Json(new { Status = false, Message = clsmaster.NAME_SERVER.ToUpper() + " sudah terdaftar sebelumnya ... " }, JsonRequestBehavior.AllowGet);
+                    }
 
-                    db.TBL_M_SERVERs.InsertOnSubmit(newdt);
-                    db.SubmitChanges();
+                    else
+                    {
+                        TBL_M_SERVER newdt = new TBL_M_SERVER();
+                        newdt.SERVER_ID = Guid.NewGuid();
+                        newdt.NAME = clsmaster.NAME_SERVER.ToUpper();
+                        newdt.REMARKS = clsmaster.REMARKS;
 
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                        db.TBL_M_SERVERs.InsertOnSubmit(newdt);
+                        db.SubmitChanges();
 
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+
+                    }
                 }
             }
 
@@ -537,23 +646,29 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var update = db.TBL_M_SERVERs.Where(x => x.SERVER_ID.ToString().ToUpper() == clsmaster.ID_SERVER.ToUpper()).FirstOrDefault();
-
-                if (update != null)
+                if (Session["kodename"] == null)
                 {
-                    update.NAME = clsmaster.NAME_SERVER.ToString();
-                    update.REMARKS = clsmaster.REMARKS.ToString();
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    var update = db.TBL_M_SERVERs.Where(x => x.SERVER_ID.ToString().ToUpper() == clsmaster.ID_SERVER.ToUpper()).FirstOrDefault();
+
+                    if (update != null)
+                    {
+                        update.NAME = clsmaster.NAME_SERVER.ToString();
+                        update.REMARKS = clsmaster.REMARKS.ToString();
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-
-
             }
 
             catch (Exception ex)
@@ -597,9 +712,16 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var get = db.TBL_M_STATUS.Where(x => x.STATUS_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    var get = db.TBL_M_STATUS.Where(x => x.STATUS_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                    return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                }
             }
 
             catch (Exception ex)
@@ -612,31 +734,37 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                string kodeName = Session["kodename"].ToString().ToUpper();
-                if (kodeName == "DEV004")
+                if (Session["kodename"] == null)
                 {
-                    var delete = db.TBL_M_STATUS.Where(x => x.STATUS_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_STATUS.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
-                }
-
-                else if (kodeName == "DEV007")
-                {
-                    var delete = db.TBL_M_STATUS.Where(x => x.STATUS_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_STATUS.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
-                }
+                    string kodeName = Session["kodename"].ToString().ToUpper();
+                    if (kodeName == "DEV004")
+                    {
+                        var delete = db.TBL_M_STATUS.Where(x => x.STATUS_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_STATUS.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
 
-                
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else if (kodeName == "DEV007")
+                    {
+                        var delete = db.TBL_M_STATUS.Where(x => x.STATUS_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_STATUS.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                    }
+                }                
             }
 
             catch (Exception ex)
@@ -649,13 +777,21 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                TBL_M_STATUS newdata = new TBL_M_STATUS();
-                newdata.STATUS_ID = Guid.NewGuid();
-                newdata.NAME = clsmaster.NAME_STATUS;
-                db.TBL_M_STATUS.InsertOnSubmit(newdata);
-                db.SubmitChanges();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    TBL_M_STATUS newdata = new TBL_M_STATUS();
+                    newdata.STATUS_ID = Guid.NewGuid();
+                    newdata.NAME = clsmaster.NAME_STATUS;
+                    db.TBL_M_STATUS.InsertOnSubmit(newdata);
+                    db.SubmitChanges();
+
+                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                }                
             }
 
             catch (Exception ex)
@@ -668,22 +804,28 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var update = db.TBL_M_STATUS.Where(x => x.STATUS_ID.ToString().ToUpper() == clsmaster.ID_STATUS.ToUpper()).FirstOrDefault();
-
-                if (update != null)
+                if (Session["kodename"] == null)
                 {
-                    update.NAME = clsmaster.NAME_STATUS.ToString();
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    var update = db.TBL_M_STATUS.Where(x => x.STATUS_ID.ToString().ToUpper() == clsmaster.ID_STATUS.ToUpper()).FirstOrDefault();
+
+                    if (update != null)
+                    {
+                        update.NAME = clsmaster.NAME_STATUS.ToString();
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-
-
             }
 
             catch (Exception ex)
@@ -727,9 +869,16 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var get = db.TBL_M_STEPs.Where(x => x.STEP_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    var get = db.TBL_M_STEPs.Where(x => x.STEP_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                    return Json(new { data = get, Status = true }, JsonRequestBehavior.AllowGet);
+                }                
             }
 
             catch (Exception ex)
@@ -742,30 +891,37 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                string kodeName = Session["kodename"].ToString().ToUpper();
-                if (kodeName == "DEV004")
+                if (Session["kodename"] == null)
                 {
-                    var delete = db.TBL_M_STEPs.Where(x => x.STEP_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_STEPs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
-                }
-
-                else if (kodeName == "DEV007")
-                {
-                    var delete = db.TBL_M_STEPs.Where(x => x.STEP_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
-                    db.TBL_M_STEPs.DeleteOnSubmit(delete);
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
-                }
+                    string kodeName = Session["kodename"].ToString().ToUpper();
+                    if (kodeName == "DEV004")
+                    {
+                        var delete = db.TBL_M_STEPs.Where(x => x.STEP_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_STEPs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
 
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else if (kodeName == "DEV007")
+                    {
+                        var delete = db.TBL_M_STEPs.Where(x => x.STEP_ID.ToString().ToUpper() == id.ToUpper()).FirstOrDefault();
+                        db.TBL_M_STEPs.DeleteOnSubmit(delete);
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Akses login tidak dapat hapus data ..." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
                 
             }
 
@@ -779,13 +935,21 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                TBL_M_STEP newdata = new TBL_M_STEP();
-                newdata.STEP_ID = Guid.NewGuid();
-                newdata.NAME = clsmaster.NAME_STEP;
-                db.TBL_M_STEPs.InsertOnSubmit(newdata);
-                db.SubmitChanges();
+                if (Session["kodename"] == null)
+                {
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
+                }
 
-                return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    TBL_M_STEP newdata = new TBL_M_STEP();
+                    newdata.STEP_ID = Guid.NewGuid();
+                    newdata.NAME = clsmaster.NAME_STEP;
+                    db.TBL_M_STEPs.InsertOnSubmit(newdata);
+                    db.SubmitChanges();
+
+                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                }
             }
 
             catch (Exception ex)
@@ -798,21 +962,28 @@ namespace new_SDLC.Controllers
         {
             try
             {
-                var update = db.TBL_M_STEPs.Where(x => x.STEP_ID.ToString().ToUpper() == clsmaster.ID_STEP.ToUpper()).FirstOrDefault();
-
-                if (update != null)
+                if (Session["kodename"] == null)
                 {
-                    update.NAME = clsmaster.NAME_STEP.ToString();
-                    db.SubmitChanges();
-
-                    return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Status = false, Message = "logout" }, JsonRequestBehavior.AllowGet);
                 }
 
                 else
                 {
-                    return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
-                }
+                    var update = db.TBL_M_STEPs.Where(x => x.STEP_ID.ToString().ToUpper() == clsmaster.ID_STEP.ToUpper()).FirstOrDefault();
 
+                    if (update != null)
+                    {
+                        update.NAME = clsmaster.NAME_STEP.ToString();
+                        db.SubmitChanges();
+
+                        return Json(new { Status = true }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    else
+                    {
+                        return Json(new { Status = false, Message = "Data tidak ditemukan..." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
 
             }
 

@@ -26,14 +26,28 @@ $(document).ready(function () {
         columns: [
             {
                 mData: 'DOC_ID',
+                //mRender: function (data, type, row) {
+                //    return `<div class="action-buttons">
+                //            <a onclick="handleEditDocList('${data}')" style="text-decoration: none">
+                //                <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
+                //            </a>
+                //            <a onclick="handleDeleteDocList('${data}')" style="text-decoration: none">
+                //                <button class="btn btn-danger action-button"><i class="fa-solid fa-trash text-light"></i></button>
+                //            </a>
+                //        </div>`
+                //},
+
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEditDocList('${data}')" style="text-decoration: none">
-                       <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
-                       </a>
-                       <button class="btn btn-danger" onclick="handleDeleteDocList('${data}')">
-                       <i class="fa-solid fa-trash text-light"></i></button>
-                       `
+                    return `<div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Edit" onclick="handleEditDocList('${data}')">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" onclick="handleDeleteDocList('${data}')">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>`;
                 },
+
                 width: '200px',
             },
             {
@@ -56,6 +70,7 @@ $(document).ready(function () {
                 mData: 'DOC_TYPE',
             },
         ],
+        "searching": false
     })
 
     tableVersion = $('#table-layer-modal_version').DataTable({
@@ -65,14 +80,28 @@ $(document).ready(function () {
         columns: [
             {
                 mData: 'VERSION_ID',
+                //mRender: function (data, type, row) {
+                //    return `<div class="action-buttons">
+                //            <a onclick="handleEditVersionList('${data}')" style="text-decoration: none">
+                //                <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
+                //            </a>
+                //            <a onclick="handleDeleteVersionList('${data}')" style="text-decoration: none">
+                //                <button class="btn btn-danger action-button"><i class="fa-solid fa-trash text-light"></i></button>
+                //            </a>
+                //        </div>`
+                //},
+
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEditVersionList('${data}')" style="text-decoration: none">
-                       <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
-                       </a>
-                       <button class="btn btn-danger" onclick="handleDeleteVersionList('${data}')">
-                       <i class="fa-solid fa-trash text-light"></i></button>
-                       `
+                    return `<div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Edit" onclick="handleEditVersionList('${data}')">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" onclick="handleDeleteVersionList('${data}')">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>`;
                 },
+
                 width: '200px',
             },
             {
@@ -92,6 +121,7 @@ $(document).ready(function () {
                 }
             },
         ],
+        "searching": false
     })
 
     tableDatabase = $('#table-layer-modal_database').DataTable({
@@ -101,20 +131,35 @@ $(document).ready(function () {
         columns: [
             {
                 mData: 'DB_ID',
+                //mRender: function (data, type, row) {
+                //    return `<div class="action-buttons">
+                //            <a onclick="handleEditDBList('${data}')" style="text-decoration: none">
+                //                <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
+                //            </a>
+                //            <a onclick="handleDeleteDBList('${data}')" style="text-decoration: none">
+                //                <button class="btn btn-danger action-button"><i class="fa-solid fa-trash text-light"></i></button>
+                //            </a>
+                //        </div>`
+                //},
+
                 mRender: function (data, type, row) {
-                    return ` <a onclick="handleEditDBList('${data}')" style="text-decoration: none">
-                       <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
-                       </a>
-                       <button class="btn btn-danger" onclick="handleDeleteDBList('${data}')">
-                       <i class="fa-solid fa-trash text-light"></i></button>
-                       `
+                    return `<div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Edit" onclick="handleEditDBList('${data}')">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" onclick="handleDeleteDBList('${data}')">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>`;
                 },
+
                 width: '200px',
             },
             {
                 mData: 'NAME',
             }
         ],
+        "searching": false
     })
         
 });
@@ -156,10 +201,17 @@ function handleDeleteDocList(id) {
                             'success'
                         )
                     } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: response.Message,
-                        })
+                        if (response.Message == "logout") {
+                            window.location.href = "/Home/Login"
+                        }
+
+                        else {
+                            Swal.fire(
+                                'Error!',
+                                response.Message,
+                                'error'
+                            )
+                        }
                     }
                 },
             })
@@ -181,7 +233,17 @@ function handleEditDocList(id) {
                 $("#ddl_docType").val(response.data.DOC_TYPE_ID)
                 $("#btnDynamicDOC").text("Update")
             } else {
-                window.location.reload();
+                if (response.Message == "logout") {
+                    window.location.href = "/Home/Login"
+                }
+
+                else {
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
+                }
             }
         },
     })
@@ -214,10 +276,17 @@ function handleDeleteVersionList(id) {
                             'success'
                         )
                     } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: response.Message,
-                        })
+                        if (response.Message == "logout") {
+                            window.location.href = "/Home/Login"
+                        }
+
+                        else {
+                            Swal.fire(
+                                'Error!',
+                                response.Message,
+                                'error'
+                            )
+                        }
                     }
                 },
             })
@@ -238,7 +307,17 @@ function handleEditVersionList(id) {
                 $("#txtReleaseDate").val(returnDate(response.data.DATE));
                 $("#btnDynamicVERSION").text("Update")
             } else {
-                window.location.reload();
+                if (response.Message == "logout") {
+                    window.location.href = "/Home/Login"
+                }
+
+                else {
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
+                }
             }
         },
     })
@@ -271,10 +350,17 @@ function handleDeleteDBList(id) {
                             'success'
                         )
                     } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: response.Message,
-                        })
+                        if (response.Message == "logout") {
+                            window.location.href = "/Home/Login"
+                        }
+
+                        else {
+                            Swal.fire(
+                                'Error!',
+                                response.Message,
+                                'error'
+                            )
+                        }
                     }
                 },
             })
@@ -294,7 +380,17 @@ function handleEditDBList(id) {
                 $("#txtName").val(response.data.NAME)
                 $("#btnDynamicDB").text("Update")
             } else {
-                window.location.reload();
+                if (response.Message == "logout") {
+                    window.location.href = "/Home/Login"
+                }
+
+                else {
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
+                }
             }
         },
     })
@@ -481,10 +577,17 @@ function saveDocList() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    if (response.Message == "logout") {
+                        window.location.href = "/Home/Login"
+                    }
+
+                    else {
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
+                    }
                 }
             }
         });
@@ -521,10 +624,17 @@ function saveDocList() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    if (response.Message == "logout") {
+                        window.location.href = "/Home/Login"
+                    }
+
+                    else {
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
+                    }
                 }
             }
         });
@@ -567,10 +677,17 @@ function saveVersionNew() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    if (response.Message == "logout") {
+                        window.location.href = "/Home/Login"
+                    }
+
+                    else {
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
+                    }
                 }
             }
         });
@@ -605,10 +722,17 @@ function saveVersionNew() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    if (response.Message == "logout") {
+                        window.location.href = "/Home/Login"
+                    }
+
+                    else {
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
+                    }
                 }
             }
         });
@@ -649,10 +773,17 @@ function saveDatabaseList() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    if (response.Message == "logout") {
+                        window.location.href = "/Home/Login"
+                    }
+
+                    else {
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
+                    }
                 }
             }
         });
@@ -685,10 +816,17 @@ function saveDatabaseList() {
 
                 } else {
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: response.Message,
-                    })
+                    if (response.Message == "logout") {
+                        window.location.href = "/Home/Login"
+                    }
+
+                    else {
+                        Swal.fire(
+                            'Error!',
+                            response.Message,
+                            'error'
+                        )
+                    }
                 }
             }
         });
@@ -771,10 +909,17 @@ function UpdateApp() {
 
             } else {
 
-                Toast.fire({
-                    icon: 'error',
-                    title: response.Message,
-                })
+                if (response.Message == "logout") {
+                    window.location.href = "/Home/Login"
+                }
+
+                else {
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
+                }
             }
         }
     });

@@ -8,17 +8,28 @@ $(document).ready(function () {
         columns: [
             {
                 mData: 'APP_ID',
-                mRender: function (data, type, row) {
-                return `<div class="action-buttons">
-                            <a onclick="handleEdit('${data}')" style="text-decoration: none">
-                                <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
-                            </a>
+                //mRender: function (data, type, row) {
+                //return `<div class="action-buttons">
+                //            <a onclick="handleEdit('${data}')" style="text-decoration: none">
+                //                <button class="btn btn-warning"><i class="fa-solid fa-pen text-light"></i></button>
+                //            </a>
+                //            <a onclick="handleDelete('${data}')" style="text-decoration: none">
+                //                <button class="btn btn-danger action-button"><i class="fa-solid fa-trash text-light"></i></button>
+                //            </a>
+                //        </div>`
+                //},
 
-                            <a onclick="handleDelete('${data}')" style="text-decoration: none">
-                                <button class="btn btn-danger action-button"><i class="fa-solid fa-trash text-light"></i></button>
-                            </a>
-                        </div>`
+                mRender: function (data, type, row) {
+                    return `<div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Edit" onclick="handleEdit('${data}')">
+                            <i class="fa fa-pencil-alt"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" onclick="handleDelete('${data}')">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>`;
                 },
+
                 width: '200px',
             },
             {
@@ -164,11 +175,17 @@ function SaveNewApp() {
 
             } else {
 
-                Swal.fire(
-                    'Error!',
-                    response.Message,
-                    'error'
-                )
+                if (response.Message == "logout") {
+                    window.location.href = "/Home/Login"
+                }
+
+                else {
+                    Swal.fire(
+                        'Error!',
+                        response.Message,
+                        'error'
+                    )
+                }
             }
         }
     });
@@ -201,11 +218,17 @@ function handleDelete(id) {
                             'success'
                         )
                     } else {
-                        Swal.fire(
-                            'Error!',
-                            response.Message,
-                            'error'
-                        )
+                        if (response.Message == "logout") {
+                            window.location.href = "/Home/Login"
+                        }
+
+                        else {
+                            Swal.fire(
+                                'Error!',
+                                response.Message,
+                                'error'
+                            )
+                        }
                     }
                 },
             })

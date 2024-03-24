@@ -1,0 +1,293 @@
+﻿.table-container {
+    width: 100%; /* Atau lebar spesifik sesuai kebutuhan */
+}
+
+#customSearchContainer {
+    margin-bottom: 10px; /* Tambahkan sedikit ruang antara kotak pencarian dan tabel */
+}
+
+#customSearchContainer .dataTables_filter {
+    width: 100%; /* Kotak pencarian mengambil lebar penuh dari container-nya */
+    box-sizing: border-box; /* Pastikan padding tidak memengaruhi lebar total */
+}
+
+#customSearchContainer .dataTables_filter input {
+    width: 100%; /* Input pencarian mengambil lebar penuh dari kotak pencarian */
+    box-sizing: border-box; /* Pastikan padding tidak memengaruhi lebar total */
+}
+
+/* Aturan untuk tablet, termasuk iPad Mini dalam mode portrait */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .col-2,
+    .col-3,
+    .col-4 {
+        flex: 0 0 33.3%; /* Atur setiap kolom menjadi 1/3 dari lebar total */
+        max-width: 33.3%; /* Atur setiap kolom menjadi 1/3 dari lebar total */
+    }
+    /* Aturan untuk form-control di dalam kolom */
+    .form-control {
+        font-size: 15px; /* Ukuran font yang disesuaikan untuk tablet */
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .col-2,
+    .col-3,
+    .col-4 {
+        flex: 0 0 25%; /* Atur setiap kolom menjadi 1/3 dari lebar total */
+        max-width: 25%; /* Atur setiap kolom menjadi 1/3 dari lebar total */
+    }
+    /* Aturan untuk form-control di dalam kolom */
+    .form-control {
+        font-size: 16px; /* Ukuran font yang disesuaikan untuk tablet */
+    }
+}
+
+/* Aturan untuk iPhone X dan smartphone serupa dalam mode portrait */
+@media only screen and (max-width: 375px) {
+    .form-control {
+        font-size: 13px; /* Ukuran font disesuaikan untuk layar kecil */
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .action-buttons a,
+    .action-buttons button {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 5px; /* Menambahkan ruang antar tombol */
+        display: block; /* Membuat tombol tampilan blok */
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column; /* Menumpuk tombol secara vertikal */
+        align-items: center; /* Menyelaraskan tombol ke tengah */
+    }
+
+    /* Sesuaikan ukuran font dan padding tombol, jika diperlukan */
+    .action-buttons .btn i {
+        font-size: 13px; /* Mengurangi ukuran ikon */
+    }
+
+}
+
+/* Aturan untuk iPhone X dan smartphone serupa dalam mode landscape */
+@media only screen and (min-width: 376px) and (max-width: 812px) {
+    .form-control {
+        font-size: 14px; /* Ukuran font yang sedikit lebih besar untuk landscape */
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    /* Aturan untuk tombol action pada landscape */
+    .action-buttons a,
+    .action-buttons button {
+        flex: 0 0 auto;
+        max-width: none;
+        margin-bottom: 5px; /* Menghapus margin bawah pada landscape */
+        display: block; /* Membuat tombol berdampingan */
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column; /* Menumpuk tombol secara vertikal */
+        align-items: center; /* Menyelaraskan tombol ke tengah */
+    }
+
+    /* Sesuaikan ukuran font dan padding tombol, jika diperlukan */
+    .action-buttons .btn i {
+        font-size: 14px; /* Mengurangi ukuran ikon */
+    }
+
+}
+
+/* Aturan untuk iPhone 11 dalam mode portrait */
+@media only screen and (min-width: 376px) and (max-width: 414px) {
+    .form-control {
+        font-size: 13px; /* Ukuran font disesuaikan untuk layar sedikit lebih besar */
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    /* Aturan untuk action buttons dalam mode portrait */
+    .action-buttons a,
+    .action-buttons button {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 5px; /* Menambahkan ruang antar tombol */
+        display: block; /* Membuat tombol tampilan blok */
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column; /* Menumpuk tombol secara vertikal */
+        align-items: center; /* Menyelaraskan tombol ke tengah */
+    }
+
+    /* Sesuaikan ukuran font dan padding tombol, jika diperlukan */
+    .action-buttons .btn i {
+        font-size: 13px; /* Mengurangi ukuran ikon */
+    }
+
+}
+
+/* Aturan untuk iPhone 11 dalam mode landscape */
+@media only screen and (min-width: 415px) and (max-width: 429px) {
+    .form-control {
+        font-size: 14px; /* Ukuran font yang sedikit lebih besar untuk landscape */
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    /* Aturan untuk tombol action pada landscape */
+    .action-buttons a,
+    .action-buttons button {
+        flex: 0 0 auto;
+        max-width: none;
+        margin-bottom: 5px; /* Menghapus margin bawah pada landscape */
+        display: block; /* Membuat tombol berdampingan */
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column; /* Menumpuk tombol secara vertikal */
+        align-items: center; /* Menyelaraskan tombol ke tengah */
+    }
+
+    /* Sesuaikan ukuran font dan padding tombol, jika diperlukan */
+    .action-buttons .btn i {
+        font-size: 14px; /* Mengurangi ukuran ikon */
+    }
+}
+
+/* Aturan untuk iPhone 12 Pro Max dan iPhone 15 Pro Max dalam mode portrait */
+@media only screen and (min-width: 430px) {
+    .form-control {
+        font-size: 14px; /* Ukuran font disesuaikan untuk layar yang lebih besar */
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 80%;
+        max-width: 80%;
+    }
+
+    /* Aturan untuk action buttons dalam mode portrait */
+    .action-buttons a,
+    .action-buttons button {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 5px; /* Menambahkan ruang antar tombol */
+        display: block; /* Membuat tombol tampilan blok */
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column; /* Menumpuk tombol secara vertikal */
+        align-items: center; /* Menyelaraskan tombol ke tengah */
+    }
+
+    /* Sesuaikan ukuran font dan padding tombol, jika diperlukan */
+    .action-buttons .btn i {
+        font-size: 14px; /* Mengurangi ukuran ikon */
+    }
+
+}
+
+/* Aturan untuk iPhone 12 Pro Max dan iPhone 15 Pro Max dalam mode landscape */
+@media only screen and (min-width: 431px) and (max-width: 926px) { /* Sesuaikan max-width jika ada perangkat dengan lebar yang lebih besar */
+    .form-control {
+        font-size: 15px; /* Ukuran font yang lebih besar untuk landscape */
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 50%; /* Misalnya, kolom mengambil setengah width pada landscape */
+        max-width: 50%;
+    }
+
+    /* Aturan untuk action buttons dalam mode portrait */
+    .action-buttons a,
+    .action-buttons button {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 5px; /* Menambahkan ruang antar tombol */
+        display: block; /* Membuat tombol tampilan blok */
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column; /* Menumpuk tombol secara vertikal */
+        align-items: center; /* Menyelaraskan tombol ke tengah */
+    }
+
+    /* Sesuaikan ukuran font dan padding tombol, jika diperlukan */
+    .action-buttons .btn i {
+        font-size: 15px; /* Mengurangi ukuran ikon */
+    }
+
+}
+
+/* Aturan untuk tablet besar dan laptop dengan ukuran layar kecil hingga menengah */
+@media only screen and (min-width: 1024px) {
+    .form-control {
+        font-size: 16px;  Ukuran font yang disesuaikan untuk tablet besar dan laptop kecil 
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 30%;
+        max-width: 30%;
+    }
+    
+}
+
+/* Aturan untuk laptop dengan layar menengah */
+@media only screen and (min-width: 1280px) {
+    .form-control {
+        font-size: 16px; /* Ukuran font yang disesuaikan untuk laptop menengah */
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 30%;
+        max-width: 30%;
+    }
+    
+}
+
+ /*Aturan untuk laptop besar dan desktop */
+@media only screen and (min-width: 1440px) {
+    .form-control {
+        font-size: 16px;  Ukuran font yang disesuaikan untuk laptop besar dan desktop 
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 30%;
+        max-width: 30%;
+    }
+
+}
+
+/* Aturan untuk desktop dengan layar lebar */
+@media only screen and (min-width: 1920px) {
+    .form-control {
+        font-size: 18px;  Ukuran font yang disesuaikan untuk layar yang sangat lebar 
+    }
+
+    .col-2, .col-3, .col-4 {
+        flex: 0 0 30%;
+        max-width: 30%;
+    }
+
+    
+}

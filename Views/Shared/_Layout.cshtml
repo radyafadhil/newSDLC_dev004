@@ -306,14 +306,27 @@
 
                                 <i class="fa fa-angle-down opacity-50 ms-1"></i>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
+                            @*<div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
                                 <div class="p-2">
                                     <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" onclick="Logout()">
                                         <span>Sign Out</span>
                                         <i class="fa fa-fw fa-sign-out-alt opacity-25"></i>
                                     </a>
                                 </div>
+                            </div>*@
+
+                            <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
+                                <div class="p-2">
+                                    <form action="/Home/Logout" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="dropdown-item d-flex align-items-center justify-content-between space-x-1">
+                                            <span>Sign Out</span>
+                                            <i class="fa fa-fw fa-sign-out-alt opacity-25"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
+
                         </div>
                         <!-- END User Dropdown -->
                     </div>
@@ -373,18 +386,27 @@
 
         $.ajax({
             url: "/Home/Logout",
-            type: "GET",
-            cache: false,
-            success: function (result) {
-                if (result.Status == true) {
-                    window.location.href = "/Home/Login"
-                }
-
-                else {
-                    alert(response.Message)
+            method: 'GET',
+            success: function (data) {
+                if (!data.isAuthenticated) {
+                    window.location.href = '/Home/login';
                 }
             }
         });
+
+        //$.ajax({
+        //    url: "/Home/Logout",
+        //    type: "GET",
+        //    cache: false,
+        //    success: function (result) {
+        //        if (result.Status == true) {
+        //            window.location.href = "/Home/Login"
+        //        }
+        //        else {
+        //            alert(response.Message)
+        //        }
+        //    }
+        //});
     }
 
 </script>
