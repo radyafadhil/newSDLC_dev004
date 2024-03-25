@@ -174,7 +174,6 @@ function CRUD_Activity() {
                     response.Message,
                     'success'
                 )
-                window.location.reload();
 
             } else {
 

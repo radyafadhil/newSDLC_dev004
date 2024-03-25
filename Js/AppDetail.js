@@ -905,8 +905,6 @@ function UpdateApp() {
                     'success'
                 )
 
-                window.location.reload();
-
             } else {
 
                 if (response.Message == "logout") {
