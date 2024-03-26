@@ -173,8 +173,12 @@ function CRUD_Activity() {
                     'Success!',
                     response.Message,
                     'success'
-                )
-                window.location.reload();
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.reload();
+                    }
+                })
+
 
             } else {
 

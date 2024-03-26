@@ -171,7 +171,6 @@ function SaveNewApp() {
                     response.Message,
                     'success'
                 )
-                window.location.reload();
 
             } else {
 

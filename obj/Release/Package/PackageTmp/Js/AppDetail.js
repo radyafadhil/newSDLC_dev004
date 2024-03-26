@@ -903,9 +903,12 @@ function UpdateApp() {
                     'Success!',
                     response.Message,
                     'success'
-                )
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.reload();
+                    }
+                })
 
-                window.location.reload();
 
             } else {
 
