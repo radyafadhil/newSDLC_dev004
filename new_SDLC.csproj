@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="LdapAuthentication, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\LdapAuthentication.dll</HintPath>
@@ -131,6 +137,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClsUploadEmpty.cs" />
     <Compile Include="Models\db_sdlc.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -4355,6 +4362,7 @@
       <LastGenOutput>db_sdlc.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\template\templateIjin.xlsx" />
     <None Include="Models\db_sdlc.dbml.layout">
       <DependentUpon>db_sdlc.dbml</DependentUpon>
     </None>
@@ -4397,9 +4405,11 @@
     <Content Include="Views\Home\AppDetail.cshtml" />
     <Content Include="Views\Home\Report.cshtml" />
     <Content Include="Views\Home\ReportTimeSheet.cshtml" />
+    <Content Include="Views\Activity\IdxCutiIzin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ContentApps\Upload_Ijin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

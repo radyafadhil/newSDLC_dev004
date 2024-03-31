@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.OleDb;
+using System.Data;
 using System.EnterpriseServices.Internal;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +16,8 @@ namespace new_SDLC.Controllers
     public class ActivityController : Controller
     {
         db_sdlcDataContext db = new db_sdlcDataContext(ConfigurationManager.ConnectionStrings["DB_ICT_eSDLCConnectionString"].ConnectionString);
-        
+        ClsUploadEmpty clsUpload = new ClsUploadEmpty();
+
         public ActionResult Index()
         {
             if (Session["kodename"] == null)
@@ -68,6 +73,19 @@ namespace new_SDLC.Controllers
                 return View();
             }
         }
+        
+        public ActionResult IdxCutiIzin()
+        {
+            if (Session["kodename"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            else
+            {
+                return View();
+            }
+        }
 
         //================================GET DATA=====================
         public JsonResult GetAppName()
@@ -100,6 +118,174 @@ namespace new_SDLC.Controllers
             catch (Exception ex)
             {
                 return Json(new { Status = false, Message = "Err GetReviewActivity : " + ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult uploadEmpty(HttpPostedFileBase excel)
+        {
+            int success = 0, failed = 0;
+            try
+            {
+                if (excel == null)
+                {
+                    return Json(new { Remarks = true, Success = "0", Failed = "0", Message = "Tidak ada data yang diupload.." }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    string message = "";
+                    string nameGeoTmp = "";
+                    string nameTmp = "";
+                    System.Data.DataSet ds = new System.Data.DataSet();
+                    if (Request.Files["excel"].ContentLength > 0)
+                    {
+                        string fileExtension = System.IO.Path.GetExtension(Request.Files["excel"].FileName);
+
+                        if (fileExtension == ".xls" || fileExtension == ".xlsx")
+                        {
+                            string fileLocation = Server.MapPath("~/Content/ContentApps/Upload_Ijin");
+                            if (System.IO.File.Exists(fileLocation))
+                            {
+                                System.IO.File.Delete(fileLocation);
+                            }
+
+                            string filename = DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd-hh-mm-ss") + Path.GetFileName(excel.FileName);
+                            string pathToExcelFile = Path.Combine(fileLocation, filename);
+                            Request.Files["excel"].SaveAs(Path.Combine(fileLocation, filename));
+                            string excelConnectionString = string.Empty;
+                            excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                            fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+
+                            //connection String for xls file format.
+                            if (fileExtension == ".xls")
+                            {
+                                excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Path.Combine(fileLocation, filename) + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                            }
+                            //connection String for xlsx file format.
+                            else if (fileExtension == ".xlsx")
+                            {
+                                excelConnectionString = String.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path.Combine(fileLocation, filename) + ";Extended Properties = 'Excel 12.0 Xml;HDR=YES;IMEX=2'; ");
+
+                            }
+                            //Create Connection to Excel work book and add oledb namespace
+                            OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+                            excelConnection.Open();
+                            DataTable dt = new DataTable();
+
+                            dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                            if (dt == null)
+                            {
+                                return null;
+                            }
+
+                            String[] excelSheets = new String[dt.Rows.Count];
+                            int t = 0;
+                            //excel data saves in temp file here.
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                if (row.ItemArray[2].ToString() == "Sheet1$")
+                                {
+                                    excelSheets[t] = row["TABLE_NAME"].ToString();
+                                    t++;
+                                }
+                            }
+                            OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
+
+                            string query = string.Format("Select * from [{0}]", excelSheets[0]);
+                            using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                            {
+                                dataAdapter.Fill(ds);
+                            }
+                        }
+
+                        try
+                        {
+                            bool statusResult = true;
+                            List<string> listIjin = new List<string>();
+                            List<string> cekDev = new List<string>();
+                            string dev = "";
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                            {
+                                string username = ds.Tables[0].Rows[i][0].ToString();
+                                string tanggal = ds.Tables[0].Rows[i][1].ToString();
+                                string desc = ds.Tables[0].Rows[i][2].ToString();
+
+                                cekDev.Add(username);
+
+                                if (username == "")
+                                {
+                                    failed = failed + 1;
+                                    statusResult = false;
+                                }
+
+                                else if (cekDev.Count > 0 && !cekDev.Contains(username))
+                                {
+                                    failed = failed + 1;
+                                    statusResult = false;
+                                }
+
+                                else if (tanggal == "")
+                                {
+                                    failed = failed + 1;
+                                    statusResult = false;
+                                }
+                                else if (desc == "")
+                                {
+                                    failed = failed + 1;
+                                    statusResult = false;
+                                }
+
+                                else if (desc != "" && (desc.ToUpper() != "CUTI" && desc.ToUpper() != "IJIN" && desc.ToUpper() != "SAKIT" && desc.ToUpper() != "IZIN"))
+                                {
+                                    failed = failed + 1;
+                                    statusResult = false;
+                                }
+
+                                else
+                                {
+                                    dev = username;
+
+                                    string formatAsal = "yyyy-MM-dd"; // Format asal
+                                    string formatTujuan = "dd/MM/yyyy"; // Format tujuan
+                                    DateTime tanggalNew = DateTime.ParseExact(tanggal, formatAsal, CultureInfo.InvariantCulture);
+                                    string tanggalBaru = tanggalNew.ToString(formatTujuan);
+
+                                    listIjin.Add(tanggalBaru + "_" + desc);
+                                    success = success + 1;
+                                }
+                            }
+
+                            if (statusResult == true)
+                            {
+                                string getReturn = clsUpload.ProcessPdf(cekDev.FirstOrDefault(), listIjin);
+                                if (getReturn.Contains("Err"))
+                                {
+                                    success = 0;
+                                    failed = ds.Tables[0].Rows.Count;
+                                    message = getReturn;
+                                }
+                            }
+
+                            else
+                            {
+                                success = 0;
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            failed = failed + 1;
+                            message = "";
+                            message = e.Message;
+                        }
+                    }
+
+                    return Json(new { Remarks = true, Success = Convert.ToString(success), Failed = Convert.ToString(failed), Message = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { Remarks = false, Success = Convert.ToString(success), Failed = Convert.ToString(failed), Message = e.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 

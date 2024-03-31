@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "IdxCutiIzin";
+}
+
+<div class="block block-rounded">
+    <div class="block-header">
+        <h2 class="block-title">Upload Cuti & Izin</h2>
+    </div>
+    <div class="block-content block-content-full">
+        <div class="content center-block">
+
+            <h7 style="color:red">Pastikan Upload format sudah sesuai READ_ME!</h7> <br />
+            <h7 style="color:red">Pastikan sebelum upload sudah melakukan sign SDLC dengan bot sign dan format nama sesuai !</h7> <br /> <br />
+
+            <h7 style="color:red">File yang sudah di sign atau hasil upload Cuti dan Izin, </h7> <br />
+            <h7 style="color:red">bisa di lihat pada \\10.12.101.38\absensi2\ </h7> <br />
+            <h7 style="color:red">yang dapat dibuka pada File Explorer / Finder</h7>
+
+            <div class="clearfix"><br /></div>
+
+            <p class="text-secondary text-sm" style="margin-bottom: 0px">
+                Download template dibawah terlebih dahulu jika belum ada Template untuk upload
+            </p>
+            <a href="~/content/template/templateIjin.xlsx" class="btn btn-default btn-icon-split btn-sm" target="_blank"
+               style="margin-left: -4px">
+                <span class="icon">
+                    <i class="fa-solid fa-download text-success"></i>
+                </span>
+                <span class="text">Download</span>
+            </a>
+
+            <form id="frmUpl" method="post" enctype="multipart/form-data">
+                <div class="mb-3 mt-2">
+                    <label for="excelFile" class="form-label">Upload Excel</label>
+                    <input class="form-control" type="file" name="excel" id="excelFile" accept=".xlsx">
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="Reset()">Reset</button>
+                <button id=btn-simpan-excel type="button" class="btn btn-primary"
+                        onclick="UploadExcel()">
+                    Simpan
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function Reset() {
+        window.location.reload()
+    }
+
+    function UploadExcel() {
+        var form = new FormData($("#frmUpl").get(0));
+
+        $.ajax({
+            url: "/Activity/uploadEmpty",
+            data: form,
+            cache: false,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (result) {
+                if (result.Remarks == true) {
+
+                    Swal.fire(
+                        'Success!',
+                        "Success : " + result.Success + " & Failed : " + result.Failed + " & Message : " + result.Message,
+                        'success'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                }
+                else {
+
+                    Swal.fire(
+                        'Error!',
+                        "Gagal Upload, Success : " + result.Success + " & Failed : " + result.Failed + " & Message : " + result.Message,
+                        'error'
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                }
+            },
+            error: function (errormessage) {
+                alert("Gagal Upload : " + errormessage.Message)
+            }
+        });
+    }
+
+</script>
+

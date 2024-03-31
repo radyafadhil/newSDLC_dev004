@@ -156,3 +156,6 @@ D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.csproj.CoreCompileInputs.cache
 D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.csproj.Up2Date
 D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.dll
 D:\DEV004\Projects\newSDLC\obj\Debug\new_SDLC.pdb
+D:\DEV004\Projects\newSDLC\bin\BouncyCastle.Crypto.dll
+D:\DEV004\Projects\newSDLC\bin\itextsharp.dll
+D:\DEV004\Projects\newSDLC\bin\itextsharp.xml
