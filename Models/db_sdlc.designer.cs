@@ -63,6 +63,9 @@ namespace new_SDLC.Models
     partial void InsertTBL_T_DOC(TBL_T_DOC instance);
     partial void UpdateTBL_T_DOC(TBL_T_DOC instance);
     partial void DeleteTBL_T_DOC(TBL_T_DOC instance);
+    partial void InsertTBL_T_CI(TBL_T_CI instance);
+    partial void UpdateTBL_T_CI(TBL_T_CI instance);
+    partial void DeleteTBL_T_CI(TBL_T_CI instance);
     #endregion
 		
 		public db_sdlcDataContext(string connection) : 
@@ -174,6 +177,14 @@ namespace new_SDLC.Models
 			get
 			{
 				return this.GetTable<TBL_T_DOC>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TBL_T_CI> TBL_T_CIs
+		{
+			get
+			{
+				return this.GetTable<TBL_T_CI>();
 			}
 		}
 		
@@ -1609,6 +1620,164 @@ namespace new_SDLC.Models
 					this._DOC_TYPE_ID = value;
 					this.SendPropertyChanged("DOC_TYPE_ID");
 					this.OnDOC_TYPE_IDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TBL_T_CIS")]
+	public partial class TBL_T_CI : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID_T_CIS;
+		
+		private string _NRP;
+		
+		private System.Nullable<System.DateTime> _TANGGAL;
+		
+		private string _STATUS;
+		
+		private string _REMARK;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnID_T_CISChanging(int value);
+    partial void OnID_T_CISChanged();
+    partial void OnNRPChanging(string value);
+    partial void OnNRPChanged();
+    partial void OnTANGGALChanging(System.Nullable<System.DateTime> value);
+    partial void OnTANGGALChanged();
+    partial void OnSTATUSChanging(string value);
+    partial void OnSTATUSChanged();
+    partial void OnREMARKChanging(string value);
+    partial void OnREMARKChanged();
+    #endregion
+		
+		public TBL_T_CI()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_T_CIS", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID_T_CIS
+		{
+			get
+			{
+				return this._ID_T_CIS;
+			}
+			set
+			{
+				if ((this._ID_T_CIS != value))
+				{
+					this.OnID_T_CISChanging(value);
+					this.SendPropertyChanging();
+					this._ID_T_CIS = value;
+					this.SendPropertyChanged("ID_T_CIS");
+					this.OnID_T_CISChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NRP", DbType="VarChar(50)")]
+		public string NRP
+		{
+			get
+			{
+				return this._NRP;
+			}
+			set
+			{
+				if ((this._NRP != value))
+				{
+					this.OnNRPChanging(value);
+					this.SendPropertyChanging();
+					this._NRP = value;
+					this.SendPropertyChanged("NRP");
+					this.OnNRPChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TANGGAL", DbType="Date")]
+		public System.Nullable<System.DateTime> TANGGAL
+		{
+			get
+			{
+				return this._TANGGAL;
+			}
+			set
+			{
+				if ((this._TANGGAL != value))
+				{
+					this.OnTANGGALChanging(value);
+					this.SendPropertyChanging();
+					this._TANGGAL = value;
+					this.SendPropertyChanged("TANGGAL");
+					this.OnTANGGALChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STATUS", DbType="VarChar(10)")]
+		public string STATUS
+		{
+			get
+			{
+				return this._STATUS;
+			}
+			set
+			{
+				if ((this._STATUS != value))
+				{
+					this.OnSTATUSChanging(value);
+					this.SendPropertyChanging();
+					this._STATUS = value;
+					this.SendPropertyChanged("STATUS");
+					this.OnSTATUSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_REMARK", DbType="VarChar(MAX)")]
+		public string REMARK
+		{
+			get
+			{
+				return this._REMARK;
+			}
+			set
+			{
+				if ((this._REMARK != value))
+				{
+					this.OnREMARKChanging(value);
+					this.SendPropertyChanging();
+					this._REMARK = value;
+					this.SendPropertyChanged("REMARK");
+					this.OnREMARKChanged();
 				}
 			}
 		}

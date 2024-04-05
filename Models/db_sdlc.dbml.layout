@@ -68,5 +68,11 @@
         <elementListCompartment Id="3895de22-384a-4339-a778-a2f2e89f6e31" absoluteBounds="2.64, 2.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="0dde1e51-f34e-4a82-846b-92274c3e9b71" isExpanded="false" absoluteBounds="2.625, 2.5, 2, 0.45">
+      <DataClassMoniker Name="/db_sdlcDataContext/TBL_T_CI" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3dda272e-aa4a-4d4c-b701-11649211bc83" absoluteBounds="2.6399999999999997, 2.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

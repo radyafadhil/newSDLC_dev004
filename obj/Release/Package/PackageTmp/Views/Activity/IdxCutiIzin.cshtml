@@ -10,17 +10,12 @@
     <div class="block-content block-content-full">
         <div class="content center-block">
 
-            <h7 style="color:red">Pastikan Upload format sudah sesuai READ_ME!</h7> <br />
-            <h7 style="color:red">Pastikan sebelum upload sudah melakukan sign SDLC dengan bot sign dan format nama sesuai !</h7> <br /> <br />
-
-            <h7 style="color:red">File yang sudah di sign atau hasil upload Cuti dan Izin, </h7> <br />
-            <h7 style="color:red">bisa di lihat pada \\10.12.101.38\absensi2\ </h7> <br />
-            <h7 style="color:red">yang dapat dibuka pada File Explorer / Finder</h7>
+            <h7 style="color:red">Pastikan Upload format Cuti dan Izin sudah sesuai READ_ME!</h7> <br />
 
             <div class="clearfix"><br /></div>
 
             <p class="text-secondary text-sm" style="margin-bottom: 0px">
-                Download template dibawah terlebih dahulu jika belum ada Template untuk upload
+                Download template Cuti dan Izin dibawah terlebih dahulu jika belum ada Template untuk upload
             </p>
             <a href="~/content/template/templateIjin.xlsx" class="btn btn-default btn-icon-split btn-sm" target="_blank"
                style="margin-left: -4px">
@@ -46,56 +41,124 @@
             </div>
 
         </div>
+
+        <div class="box bg-white shadow p-4 mt-4 rounded table-responsive">
+            <div id="customSearchContainer"></div>
+            <table id="table-layer-group" class="table table-striped table-inverse">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>NRP</th>
+                        <th>TANGGAL</th>
+                        <th>REMARK</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 
-<script>
-    function Reset() {
-        window.location.reload()
-    }
+@section scripts {
+    <script>
 
-    function UploadExcel() {
-        var form = new FormData($("#frmUpl").get(0));
+        let tableLocation
 
-        $.ajax({
-            url: "/Activity/uploadEmpty",
-            data: form,
-            cache: false,
-            type: "POST",
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            success: function (result) {
-                if (result.Remarks == true) {
-
-                    Swal.fire(
-                        'Success!',
-                        "Success : " + result.Success + " & Failed : " + result.Failed + " & Message : " + result.Message,
-                        'success'
-                    ).then((result) => {
-                        if (result.isConfirmed) {
-                            location.reload();
+        $(document).ready(function () {
+            tableLocation = $('#table-layer-group').DataTable({
+                ajax: '/Activity/getCutiLogin',
+                dataSrc: 'data',
+                scrollY: '48vh',
+                columns: [
+                    //{
+                    //    mData: 'ID_T_CIS',
+                    //    mRender: function (data, type, row) {
+                    //        return `<div class="btn-group" role="group" aria-label="Basic example">
+                    //        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Edit" onclick="handleEdit('${data}')">
+                    //            <i class="fa fa-pencil-alt"></i>
+                    //        </button>
+                    //        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" onclick="handleDelete('${data}')">
+                    //            <i class="fa fa-times"></i>
+                    //        </button>
+                    //    </div>`;
+                    //    },
+                    //    width: '200px',
+                    //},
+                    {
+                        mData: 'NRP',
+                    },
+                    {
+                        mData: 'TANGGAL',
+                        mRender: function (data, type, row) {
+                            if (type === 'display' && data) {
+                                var date = new Date(parseInt(data.match(/\d+/)[0])); // Konversi string /Date(12345678)/ menjadi Date
+                                var formattedDate = date.getFullYear() + '-' +
+                                    ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                                    ('0' + date.getDate()).slice(-2); // Format menjadi yyyy-MM-dd
+                                return formattedDate;
+                            }
+                            return data; // Untuk tipe lain seperti sorting, dll, kembalikan data asli
                         }
-                    })
-                }
-                else {
+                    },
+                    {
+                        mData: 'REMARK',
+                    },
+                ],
 
-                    Swal.fire(
-                        'Error!',
-                        "Gagal Upload, Success : " + result.Success + " & Failed : " + result.Failed + " & Message : " + result.Message,
-                        'error'
-                    ).then((result) => {
-                        if (result.isConfirmed) {
-                            location.reload();
-                        }
-                    })
-                }
-            },
-            error: function (errormessage) {
-                alert("Gagal Upload : " + errormessage.Message)
-            }
+                "pagingType": "numbers",
+            })
+
+            $(".dataTables_filter").appendTo("#customSearchContainer");
         });
-    }
 
-</script>
+        function Reset() {
+            window.location.reload()
+        }
+
+        function UploadExcel() {
+            var form = new FormData($("#frmUpl").get(0));
+
+            $.ajax({
+                url: "/Activity/uploadEmpty",
+                data: form,
+                cache: false,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (result) {
+                    if (result.Remarks == true) {
+
+                        Swal.fire(
+                            'Success!',
+                            "Success : " + result.Success + " & Failed : " + result.Failed + " & Message : " + result.Message,
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+                    }
+                    else {
+
+                        Swal.fire(
+                            'Error!',
+                            "Gagal Upload, Success : " + result.Success + " & Failed : " + result.Failed + " & Message : " + result.Message,
+                            'error'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+                    }
+                },
+                error: function (errormessage) {
+                    alert("Gagal Upload : " + errormessage.Message)
+                }
+            });
+        }
+
+    </script>
+}
 

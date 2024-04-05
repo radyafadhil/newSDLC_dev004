@@ -85,6 +85,15 @@
       <Column Name="DOC_TYPE_ID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.TBL_T_CIS" Member="TBL_T_CIs">
+    <Type Name="TBL_T_CI">
+      <Column Name="ID_T_CIS" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NRP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TANGGAL" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="STATUS" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="REMARK" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.cufn_getAllActivities1" Method="cufn_getAllActivities1" IsComposable="true">
     <ElementType Name="cufn_getAllActivities1Result">
       <Column Name="ACTIVITY_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
